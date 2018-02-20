@@ -65,5 +65,4 @@ namespace Retrofit2
         public delegate Request Request();
         public Request request;
     }
-
 }
