@@ -1,9 +1,8 @@
 ﻿using System;
 
-using Caliburn.Micro;
+using GalaSoft.MvvmLight;
 
-using ScoroTask.Helpers;
-
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -11,38 +10,29 @@ using Windows.UI.Xaml.Media;
 
 namespace ScoroTask.ViewModels
 {
-    public class ShellNavigationItem : PropertyChangedBase
+    public class ShellNavigationItem : ViewModelBase
     {
-        private bool _isSelected;
+        public string Label { get; set; }
+
+        public Symbol Symbol { get; set; }
+
+        public string ViewModelName { get; set; }
 
         private Visibility _selectedVis = Visibility.Collapsed;
 
         public Visibility SelectedVis
         {
             get { return _selectedVis; }
+
             set { Set(ref _selectedVis, value); }
         }
-
-        private SolidColorBrush _selectedForeground = null;
-
-        public SolidColorBrush SelectedForeground
-        {
-            get { return _selectedForeground ?? (_selectedForeground = GetStandardTextColorBrush()); }
-            set { Set(ref _selectedForeground, value); }
-        }
-
-        public string Label { get; set; }
-
-        public Symbol Symbol { get; set; }
 
         public char SymbolAsChar
         {
             get { return (char)Symbol; }
         }
 
-        public Type ViewModelType { get; set; }
-
-        private IconElement _iconElement = null;
+        private readonly IconElement _iconElement = null;
 
         public IconElement Icon
         {
@@ -53,7 +43,7 @@ namespace ScoroTask.ViewModels
                     Source = this,
                     Path = new PropertyPath("SelectedForeground"),
                     Mode = BindingMode.OneWay,
-                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                 };
 
                 if (_iconElement != null)
@@ -65,11 +55,13 @@ namespace ScoroTask.ViewModels
 
                 var fontIcon = new FontIcon { FontSize = 16, Glyph = SymbolAsChar.ToString() };
 
-                BindingOperations.SetBinding(fontIcon, FontIcon.ForegroundProperty, foregroundBinding);
+                BindingOperations.SetBinding(fontIcon, IconElement.ForegroundProperty, foregroundBinding);
 
                 return fontIcon;
             }
         }
+
+        private bool _isSelected;
 
         public bool IsSelected
         {
@@ -81,11 +73,41 @@ namespace ScoroTask.ViewModels
             set
             {
                 Set(ref _isSelected, value);
-                SelectedVis = value ? Visibility.Visible : Visibility.Collapsed;
-                SelectedForeground = value
+
+                bool isFcu = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
+                SelectedVis = isFcu && value ? Visibility.Visible : Visibility.Collapsed;
+
+                SelectedForeground = IsSelected
                     ? Application.Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush
                     : GetStandardTextColorBrush();
             }
+        }
+
+        private SolidColorBrush _selectedForeground = null;
+
+        public SolidColorBrush SelectedForeground
+        {
+            get { return _selectedForeground ?? (_selectedForeground = GetStandardTextColorBrush()); }
+
+            set { Set(ref _selectedForeground, value); }
+        }
+
+        public ShellNavigationItem(string label, Symbol symbol, string viewModelName)
+            : this(label, viewModelName)
+        {
+            Symbol = symbol;
+        }
+
+        public ShellNavigationItem(string label, IconElement icon, string viewModelName)
+            : this(label, viewModelName)
+        {
+            _iconElement = icon;
+        }
+
+        public ShellNavigationItem(string label, string viewModelName)
+        {
+            Label = label;
+            ViewModelName = viewModelName;
         }
 
         private SolidColorBrush GetStandardTextColorBrush()
@@ -93,26 +115,6 @@ namespace ScoroTask.ViewModels
             var brush = Application.Current.Resources["ThemeControlForegroundBaseHighBrush"] as SolidColorBrush;
 
             return brush;
-        }
-
-        protected ShellNavigationItem()
-        {
-        }
-
-        public ShellNavigationItem(string label, Symbol symbol, Type viewModeType)
-            : this()
-        {
-            Label = label;
-            Symbol = symbol;
-            ViewModelType = viewModeType;
-        }
-
-        public ShellNavigationItem(string label, IconElement icon, Type viewModeType)
-            : this()
-        {
-            Label = label;
-            _iconElement = icon;
-            ViewModelType = viewModeType;
         }
 
         public override string ToString()

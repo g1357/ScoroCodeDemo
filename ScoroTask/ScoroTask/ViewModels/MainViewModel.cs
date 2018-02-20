@@ -1,13 +1,12 @@
 ﻿using System;
 
-using Caliburn.Micro;
-
-using ScoroTask.Helpers;
+using GalaSoft.MvvmLight;
 
 namespace ScoroTask.ViewModels
 {
-    public class MainViewModel : Screen
+    public class MainViewModel : ViewModelBase
     {
+        public string ReleaseDate { get; set; } = "13.02.2018";
         public MainViewModel()
         {
         }

@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using Caliburn.Micro;
 
 using ScoroTask.Services;
-using ScoroTask.ViewModels;
 
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
 namespace ScoroTask
 {
-    public sealed partial class App
+    public sealed partial class App : Application
     {
         private Lazy<ActivationService> _activationService;
 
@@ -24,7 +21,7 @@ namespace ScoroTask
         {
             InitializeComponent();
 
-            Initialize();
+            EnteredBackground += App_EnteredBackground;
 
             // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
@@ -43,50 +40,31 @@ namespace ScoroTask
             await ActivationService.ActivateAsync(args);
         }
 
-        private WinRTContainer _container;
-
-        protected override void Configure()
-        {
-            // This configures the framework to map between MainViewModel and MainPage
-            // Normally it would map between MainPageViewModel and MainPage
-            var config = new TypeMappingConfiguration
-            {
-                IncludeViewSuffixInViewModelNames = false
-            };
-
-            ViewLocator.ConfigureTypeMappings(config);
-            ViewModelLocator.ConfigureTypeMappings(config);
-
-            _container = new WinRTContainer();
-            _container.RegisterWinRTServices();
-
-            _container.PerRequest<ShellViewModel>();
-            _container.PerRequest<MainViewModel>();
-        }
-
-        protected override object GetInstance(Type service, string key)
-        {
-            return _container.GetInstance(service, key);
-        }
-
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            return _container.GetAllInstances(service);
-        }
-
-        protected override void BuildUp(object instance)
-        {
-            _container.BuildUp(instance);
-        }
-
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(_container, typeof(ViewModels.MainViewModel), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(ViewModels.MainViewModel), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()
         {
             return new Views.ShellPage();
+        }
+
+        private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
+        {
+            var deferral = e.GetDeferral();
+            await Helpers.Singleton<SuspendAndResumeService>.Instance.SaveStateAsync();
+            deferral.Complete();
+        }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            await ActivationService.ActivateAsync(args);
+        }
+
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            await ActivationService.ActivateFromShareTargetAsync(args);
         }
     }
 }

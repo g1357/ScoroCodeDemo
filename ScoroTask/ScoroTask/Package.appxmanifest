@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="C11AABD2-8B34-48A5-8BA7-C63329B73970"
-    Publisher="CN=Dukar"
+    Name="31B6F347-EBC0-4584-8369-9BA159D59788"
+    Publisher="CN=Dukarevich_G"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="C11AABD2-8B34-48A5-8BA7-C63329B73970" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="31B6F347-EBC0-4584-8369-9BA159D59788" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>ScoroTask</DisplayName>
-    <PublisherDisplayName>Dukar</PublisherDisplayName>
+    <PublisherDisplayName>Dukarevich_G</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -43,19 +43,30 @@
       </uap:VisualElements>
 
       <Extensions>
+        <uap:Extension Category="windows.shareTarget">
+          <uap:ShareTarget>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.jpg</uap:FileType>
+              <uap:FileType>.png</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DataFormat>URI</uap:DataFormat>
+            <uap:DataFormat>Bitmap</uap:DataFormat>
+          </uap:ShareTarget>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <DeviceCapability Name="location" />
   </Capabilities>
 
   <genTemplate:Metadata>
     <genTemplate:Item Name="generator" Value="Windows Template Studio"/>
     <genTemplate:Item Name="wizardVersion" Version="v1.7.18030.1" />
-    <genTemplate:Item Name="templatesVersion" Version="v1.7.18037.1" />
+    <genTemplate:Item Name="templatesVersion" Version="v1.7.18030.1" />
     <genTemplate:Item Name="projectType" Value="SplitView" />
-    <genTemplate:Item Name="framework" Value="CaliburnMicro" />
+    <genTemplate:Item Name="framework" Value="MVVMLight" />
   </genTemplate:Metadata>
 </Package>
