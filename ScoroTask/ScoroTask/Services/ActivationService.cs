@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Caliburn.Micro;
-
 using ScoroTask.Activation;
+using ScoroTask.Helpers;
+using ScoroTask.Services;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
@@ -18,13 +18,17 @@ namespace ScoroTask.Services
     // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal class ActivationService
     {
-        private readonly WinRTContainer _container;
-        private readonly Type _defaultNavItem;
+        private readonly App _app;
         private readonly Lazy<UIElement> _shell;
+        private readonly Type _defaultNavItem;
 
-        public ActivationService(WinRTContainer container, Type defaultNavItem, Lazy<UIElement> shell = null)
+        private ViewModels.ViewModelLocator Locator => Application.Current.Resources["Locator"] as ViewModels.ViewModelLocator;
+
+        private NavigationServiceEx NavigationService => Locator.NavigationService;
+
+        public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
         {
-            _container = container;
+            _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
         }
@@ -41,32 +45,15 @@ namespace ScoroTask.Services
                 if (Window.Current.Content == null)
                 {
                     // Create a Frame to act as the navigation context and navigate to the first page
-                    if (_shell?.Value == null)
+                    Window.Current.Content = _shell?.Value ?? new Frame();
+                    NavigationService.NavigationFailed += (sender, e) =>
                     {
-                        var frame = new Frame();
-                        NavigationService = _container.RegisterNavigationService(frame);
-                        Window.Current.Content = frame;
-                    }
-                    else
+                        throw e.Exception;
+                    };
+                    NavigationService.Navigated += Frame_Navigated;
+                    if (SystemNavigationManager.GetForCurrentView() != null)
                     {
-                        var viewModel = ViewModelLocator.LocateForView(_shell.Value);
-
-                        ViewModelBinder.Bind(viewModel, _shell.Value, null);
-
-                        ScreenExtensions.TryActivate(viewModel);
-
-                        NavigationService = _container.GetInstance<INavigationService>();
-                        Window.Current.Content = _shell?.Value;
-                    }
-
-                    if (NavigationService != null)
-                    {
-                        NavigationService.NavigationFailed += (sender, e) =>
-                        {
-                            throw e.Exception;
-                        };
-
-                        NavigationService.Navigated += OnFrameNavigated;
+                        SystemNavigationManager.GetForCurrentView().BackRequested += ActivationService_BackRequested;
                     }
                 }
             }
@@ -81,7 +68,7 @@ namespace ScoroTask.Services
 
             if (IsInteractive(activationArgs))
             {
-                var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem, NavigationService);
+                var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem);
                 if (defaultHandler.CanHandle(activationArgs))
                 {
                     await defaultHandler.HandleAsync(activationArgs);
@@ -95,21 +82,32 @@ namespace ScoroTask.Services
             }
         }
 
-        private INavigationService NavigationService { get; set; }
-
         private async Task InitializeAsync()
         {
+            await Singleton<LiveTileService>.Instance.EnableQueueAsync();
+            Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasks();
+            await ThemeSelectorService.InitializeAsync();
             await Task.CompletedTask;
         }
 
         private async Task StartupAsync()
         {
+            await WhatsNewDisplayService.ShowIfAppropriateAsync();
+            await FirstRunDisplayService.ShowIfAppropriateAsync();
+            Singleton<LiveTileService>.Instance.SampleUpdate();
+            await Singleton<StoreNotificationsService>.Instance.InitializeAsync();
+            ThemeSelectorService.SetRequestedTheme();
             await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield break;
+            yield return Singleton<LiveTileService>.Instance;
+            yield return Singleton<StoreNotificationsService>.Instance;
+            yield return Singleton<ToastNotificationsService>.Instance;
+            yield return Singleton<ShareTargetActivationHandler>.Instance;
+            yield return Singleton<BackgroundTaskService>.Instance;
+            yield return Singleton<SuspendAndResumeService>.Instance;
         }
 
         private bool IsInteractive(object args)
@@ -117,10 +115,28 @@ namespace ScoroTask.Services
             return args is IActivatedEventArgs;
         }
 
-        private void OnFrameNavigated(object sender, NavigationEventArgs e)
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = NavigationService.CanGoBack ?
                 AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void ActivationService_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+                e.Handled = true;
+            }
+        }
+
+        internal async Task ActivateFromShareTargetAsync(ShareTargetActivatedEventArgs activationArgs)
+        {
+            var shareTargetHandler = GetActivationHandlers().FirstOrDefault(h => h.CanHandle(activationArgs));
+            if (shareTargetHandler != null)
+            {
+                await shareTargetHandler.HandleAsync(activationArgs);
+            }
         }
     }
 }

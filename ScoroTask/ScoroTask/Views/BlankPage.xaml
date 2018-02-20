@@ -1,0 +1,65 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fcu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:cu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Class="ScoroTask.Views.BlankPage"
+    Style="{StaticResource PageStyle}"
+    DataContext="{Binding BlankViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea"
+        Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleRow" Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePage.Margin" Value="48,0,12,7"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <TextBlock x:Name="TitlePage" x:Uid="Blank_Title"
+            Style="{StaticResource PageTitleStyle}" />
+        <Grid Grid.Row="1" 
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.-->
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Start Processing" Command="{x:Bind ViewModel.StartCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
+                    <Button Content="POST Command" Command="{x:Bind ViewModel.PostCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
+                    <Button Content="Login Command" Command="{x:Bind ViewModel.LoginCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
+                    <Button Content="Logout Command" Command="{x:Bind ViewModel.LogoutCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
+                    <Button Content="--- for futre ---" Command="{x:Bind ViewModel.StartCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
+                    <Button Content="--- for futre ---" Command="{x:Bind ViewModel.StartCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
+                </StackPanel>
+                <TextBlock Text="Log:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top" Width="994" HorizontalScrollBarVisibility="Visible">
+                    <TextBlock Text="{x:Bind ViewModel.Log, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="900" Height="800" cu:ScrollViewer.HorizontalScrollBarVisibility="Auto" TextWrapping="WrapWholeWords" />
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

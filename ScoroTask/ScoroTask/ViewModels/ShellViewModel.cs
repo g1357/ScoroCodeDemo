@@ -3,7 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
-using Caliburn.Micro;
+using CommonServiceLocator;
+
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 using Microsoft.Toolkit.Uwp.UI.Controls;
 
@@ -17,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ScoroTask.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : ViewModelBase
     {
         private const string PanoramicStateName = "PanoramicState";
         private const string WideStateName = "WideState";
@@ -25,12 +28,12 @@ namespace ScoroTask.ViewModels
         private const double WideStateMinWindowWidth = 640;
         private const double PanoramicStateMinWindowWidth = 1024;
 
-        private readonly WinRTContainer _container;
-        private INavigationService _navigationService;
-
-        public ShellViewModel(WinRTContainer container)
+        public NavigationServiceEx NavigationService
         {
-            _container = container;
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NavigationServiceEx>();
+            }
         }
 
         private bool _isPaneOpen;
@@ -59,18 +62,65 @@ namespace ScoroTask.ViewModels
 
         private object _lastSelectedItem;
 
-        public ObservableCollection<ShellNavigationItem> PrimaryItems { get; } = new ObservableCollection<ShellNavigationItem>();
+        private ObservableCollection<ShellNavigationItem> _primaryItems = new ObservableCollection<ShellNavigationItem>();
 
-        public ObservableCollection<ShellNavigationItem> SecondaryItems { get; } = new ObservableCollection<ShellNavigationItem>();
-
-        public void Open()
+        public ObservableCollection<ShellNavigationItem> PrimaryItems
         {
-            IsPaneOpen = !IsPaneOpen;
+            get { return _primaryItems; }
+            set { Set(ref _primaryItems, value); }
         }
 
-        public void StateChanged(VisualStateChangedEventArgs args)
+        private ObservableCollection<ShellNavigationItem> _secondaryItems = new ObservableCollection<ShellNavigationItem>();
+
+        public ObservableCollection<ShellNavigationItem> SecondaryItems
         {
-            GoToState(args.NewState.Name);
+            get { return _secondaryItems; }
+            set { Set(ref _secondaryItems, value); }
+        }
+
+        private ICommand _openPaneCommand;
+
+        public ICommand OpenPaneCommand
+        {
+            get
+            {
+                if (_openPaneCommand == null)
+                {
+                    _openPaneCommand = new RelayCommand(() => IsPaneOpen = !_isPaneOpen);
+                }
+
+                return _openPaneCommand;
+            }
+        }
+
+        private ICommand _itemSelected;
+
+        public ICommand ItemSelectedCommand
+        {
+            get
+            {
+                if (_itemSelected == null)
+                {
+                    _itemSelected = new RelayCommand<HamburgetMenuItemInvokedEventArgs>(ItemSelected);
+                }
+
+                return _itemSelected;
+            }
+        }
+
+        private ICommand _stateChangedCommand;
+
+        public ICommand StateChangedCommand
+        {
+            get
+            {
+                if (_stateChangedCommand == null)
+                {
+                    _stateChangedCommand = new RelayCommand<Windows.UI.Xaml.VisualStateChangedEventArgs>(args => GoToState(args.NewState.Name));
+                }
+
+                return _stateChangedCommand;
+            }
         }
 
         private void GoToState(string stateName)
@@ -93,17 +143,10 @@ namespace ScoroTask.ViewModels
             }
         }
 
-        protected override void OnInitialize()
+        public void Initialize(Frame frame)
         {
-            var view = GetView() as IShellView;
-
-            _navigationService = view?.CreateNavigationService(_container);
-
-            if (_navigationService != null)
-            {
-                _navigationService.Navigated += NavigationService_Navigated;
-            }
-
+            NavigationService.Frame = frame;
+            NavigationService.Navigated += Frame_Navigated;
             PopulateNavItems();
 
             InitializeState(Window.Current.Bounds.Width);
@@ -127,17 +170,29 @@ namespace ScoroTask.ViewModels
 
         private void PopulateNavItems()
         {
-            PrimaryItems.Clear();
-            SecondaryItems.Clear();
+            _primaryItems.Clear();
+            _secondaryItems.Clear();
 
             // TODO WTS: Change the symbols for each item as appropriate for your app
             // More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
             // Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
             // Edit String/en-US/Resources.resw: Add a menu item title for each page
-            PrimaryItems.Add(new ShellNavigationItem("Shell_Main".GetLocalized(), Symbol.Document, typeof(MainViewModel)));
+            _primaryItems.Add(new ShellNavigationItem("Shell_Main".GetLocalized(), Symbol.Document, typeof(MainViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_UserOperations".GetLocalized(), Symbol.OtherUser, typeof(UserOperationsViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_DocumentOperations".GetLocalized(), Symbol.Document, typeof(DocumentOperationsViewModel).FullName));
+
+            _primaryItems.Add(new ShellNavigationItem("Shell_Blank".GetLocalized(), Symbol.Document, typeof(BlankViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_WebView".GetLocalized(), Symbol.Document, typeof(WebViewViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_MasterDetail".GetLocalized(), Symbol.Document, typeof(MasterDetailViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_Grid".GetLocalized(), Symbol.Document, typeof(GridViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_Chart".GetLocalized(), Symbol.Document, typeof(ChartViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_Tabbed".GetLocalized(), Symbol.Document, typeof(TabbedViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_Map".GetLocalized(), Symbol.Document, typeof(MapViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_ImageGallery".GetLocalized(), Symbol.Document, typeof(ImageGalleryViewModel).FullName));
+            _secondaryItems.Add(new ShellNavigationItem("Shell_Settings".GetLocalized(), Symbol.Setting, typeof(SettingsViewModel).FullName));
         }
 
-        public void ItemSelected(HamburgetMenuItemInvokedEventArgs args)
+        private void ItemSelected(HamburgetMenuItemInvokedEventArgs args)
         {
             if (DisplayMode == SplitViewDisplayMode.CompactOverlay || DisplayMode == SplitViewDisplayMode.Overlay)
             {
@@ -147,17 +202,15 @@ namespace ScoroTask.ViewModels
             Navigate(args.InvokedItem);
         }
 
-        private void NavigationService_Navigated(object sender, NavigationEventArgs e)
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
             if (e != null)
             {
-                var viewType = _navigationService.CurrentSourcePageType;
-                var viewModelType = ViewModelLocator.LocateTypeForViewType(viewType, false);
-
-                var navigationItem = PrimaryItems?.FirstOrDefault(i => i.ViewModelType == viewModelType);
+                var vm = NavigationService.GetNameOfRegisteredPage(e.SourcePageType);
+                var navigationItem = PrimaryItems?.FirstOrDefault(i => i.ViewModelName == vm);
                 if (navigationItem == null)
                 {
-                    navigationItem = SecondaryItems?.FirstOrDefault(i => i.ViewModelType == viewModelType);
+                    navigationItem = SecondaryItems?.FirstOrDefault(i => i.ViewModelName == vm);
                 }
 
                 if (navigationItem != null)
@@ -184,15 +237,10 @@ namespace ScoroTask.ViewModels
 
         private void Navigate(object item)
         {
-            if (_lastSelectedItem == item)
-            {
-                return;
-            }
-
             var navigationItem = item as ShellNavigationItem;
             if (navigationItem != null)
             {
-                _navigationService.NavigateToViewModel(navigationItem.ViewModelType);
+                NavigationService.Navigate(navigationItem.ViewModelName);
             }
         }
     }
