@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ScorocodeUWP.Responses.Data
 {
     public class ResponseInsert : ResponseCodes
     {
-
+        [JsonProperty("result")]
         private Dictionary<string, object> _result;
         public Dictionary<string, object> Result
         {

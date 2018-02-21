@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using ScorocodeUWP.ScorocodeObjects;
 
-namespace ScorocodeUWP.Requests
+namespace ScorocodeUWP.Requests.Application
 {
     // Редакция 2.001 от 09.02.2018 ДГБ
     // Basen on Java file

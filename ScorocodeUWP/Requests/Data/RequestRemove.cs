@@ -1,4 +1,5 @@
-﻿using ScorocodeUWP.ScorocodeObjects;
+﻿using Newtonsoft.Json;
+using ScorocodeUWP.ScorocodeObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,19 @@ namespace ScorocodeUWP.Requests.Data
 {
     public class RequestRemove
     {
+        [JsonProperty("app")]
         private string _app;
+        [JsonProperty("cli")]
         private string _cli;
+        [JsonProperty("acc")]
         private string _acc;
+        [JsonProperty("sess")]
         private string _sess;
+        [JsonProperty("coll")]
         private string _coll;
+        [JsonProperty("query")]
         private Dictionary<string, object> _query;
+        [JsonProperty("limit")]
         private int limit;
 
         public RequestRemove(ScorocodeSdkStateHolder stateHolder, string collectionName,

@@ -125,22 +125,22 @@
     <Compile Include="Requests\Data\RequestRemove.cs" />
     <Compile Include="Requests\Data\RequestUpdate.cs" />
     <Compile Include="Requests\Data\RequestUpdateById.cs" />
-    <Compile Include="Requests\RequestLoginUser.cs" />
-    <Compile Include="Requests\RequestLogoutUser.cs" />
-    <Compile Include="Requests\RequestStatistic.cs" />
+    <Compile Include="Requests\User\RequestLoginUser.cs" />
+    <Compile Include="Requests\User\RequestLogoutUser.cs" />
+    <Compile Include="Requests\Application\RequestStatistic.cs" />
     <Compile Include="Responses\Data\ResponseCount.cs" />
     <Compile Include="Responses\Data\ResponseInsert.cs" />
-    <Compile Include="Responses\Data\ResponseString.cs" />
+    <Compile Include="Responses\ResponseString.cs" />
     <Compile Include="Responses\Data\ResponseUpdate.cs" />
     <Compile Include="Responses\Data\ResponseUpdateById.cs" />
-    <Compile Include="Responses\ResponseAppStatistic.cs" />
+    <Compile Include="Responses\Application\ResponseAppStatistic.cs" />
     <Compile Include="ScorocodeApiModule.cs" />
     <Compile Include="ScorocodeObjects\DocumentInfo.cs" />
     <Compile Include="Folders.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="Requests\RequestRegisterUser.cs" />
-    <Compile Include="Responses\ResponseLogin.cs" />
+    <Compile Include="Requests\User\RequestRegisterUser.cs" />
+    <Compile Include="Responses\User\ResponseLogin.cs" />
     <Compile Include="Responses\Data\ResponseRemove.cs" />
     <Compile Include="Responses\ResponseCodes.cs" />
     <Compile Include="ScorocodeObjects\NetworkHelper.cs" />
@@ -151,6 +151,7 @@
     <Compile Include="ScorocodeObjects\ScorocodeSdkStateHolder.cs" />
     <Compile Include="ScorocodeObjects\Sort.cs" />
     <Compile Include="ScorocodeObjects\SortInfo.cs" />
+    <Compile Include="ScorocodeObjects\UpdateInfo.cs" />
     <Compile Include="ScorocodeScript.cs" />
     <Compile Include="ScorocodeSDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -173,6 +174,7 @@
       <Version>11.0.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

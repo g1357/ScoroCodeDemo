@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ScorocodeUWP.Responses.Data
 {
-    public class ResponseCount : ResponseCodes
+    public class ResponseString : ResponseCodes
     {
         [JsonProperty("result")]
-        private int result;
-        public int Result
+        private string result;
+        public string Result
         {
             get => result;
             set { result = value; }
