@@ -1,4 +1,0 @@
-# ScoroCodeDemo
-
-Readme.md file
-
