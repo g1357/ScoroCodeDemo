@@ -113,7 +113,7 @@
                     The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                     Place your content here.
                     -->
-
+                    <Button Content="Delete Document" Command="{x:Bind Path=ViewModel.DeleteCommand}" Margin="10" VerticalAlignment="Top"/>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="DocumentOperations_PivotItem3">

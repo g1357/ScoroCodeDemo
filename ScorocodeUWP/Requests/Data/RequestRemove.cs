@@ -26,7 +26,7 @@ namespace ScorocodeUWP.Requests.Data
         private int limit;
 
         public RequestRemove(ScorocodeSdkStateHolder stateHolder, string collectionName,
-                Dictionary<string, object> query = null, int limit = 0)
+                Dictionary<string, object> query, int limit = 0)
         {
             _app = stateHolder.ApplicationId;
             _cli = stateHolder.ClientKey;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -238,6 +239,48 @@ namespace ScoroTask.ViewModels
         {
             get { return _user; }
             set { Set(ref _user, value); }
+        }
+
+        //============ Delete Documant ============
+        private RelayCommand _deleteCommand;
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestRemove requestRemove;
+                        Dictionary<string, object> query = new Dictionary<string, object>();
+                        query.Add("_id", "9CkCd3BsdO");
+
+                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
+                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+
+                        Error = responseRemove.Error;
+                        ErrorCode = responseRemove.ErrCode;
+                        ErrorMessage = responseRemove.ErrMsg;
+                        if (!Error)
+                        {
+                            Document = string.Empty;
+                            var dictionary = responseRemove.Result.Docs;
+                            foreach (var item in dictionary)
+                            {
+                                Document += $"_id : {item}\n";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _deleteCommand;
+            }
         }
 
     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ScorocodeUWP.Requests;
+using ScorocodeUWP.Requests.Application;
 using ScorocodeUWP.Requests.Data;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Data;
@@ -128,27 +129,40 @@ namespace ScorocodeUWP
                 responseInsert.ErrCode = "";
                 responseInsert.ErrMsg = "Ошибка HttpClient.";
             }
-
             return responseInsert;
         }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/remove")
         //Call<ResponseRemove> remove(@Body RequestRemove requestRemove);
-        public ResponseRemove RemoveAsync(RequestRemove requestRemove)
+        public async Task<ResponseRemove> RemoveAsync(RequestRemove requestRemove)
         {
+            var uri = new Uri(baseUri + @"api/v1/data/remove");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestRemove);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+
+            ResponseRemove responseRemove = new ResponseRemove();
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseRemove = JsonConvert.DeserializeObject<ResponseRemove>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseRemove.Error = true;
+                responseRemove.ErrCode = "";
+                responseRemove.ErrMsg = "Ошибка HttpClient.";
+            }
             return new ResponseRemove();
         }
-
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/update")
         //Call<ResponseUpdate> update(@Body RequestUpdate requestUpdate);
         public ResponseUpdate UpdateAsync(RequestUpdate requestUpdate)
         {
-            return new ResponseUpdate();
+            return new ResponseUpdate(new ResponseUpdate.Results());
         }
-
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/updatebyid")
