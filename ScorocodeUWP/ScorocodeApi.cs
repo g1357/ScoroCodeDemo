@@ -144,22 +144,35 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/update")
         //Call<ResponseUpdate> update(@Body RequestUpdate requestUpdate);
+        public ResponseUpdate UpdateAsync(RequestUpdate requestUpdate)
+        {
+            return new ResponseUpdate();
+        }
 
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/updatebyid")
         //Call<ResponseUpdateById> updateById(@Body RequestUpdateById requestUpdateById);
-
+        public ResponseUpdateById UpdateByIdAsync(RequestUpdateById requestUpdateById)
+        {
+            return new ResponseUpdateById();
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/find")
         //Call<ResponseString> find(@Body RequestFind requestFind);
-
+        public ResponseString FindAsync(RequestFind requestFind)
+        {
+            return new ResponseString();
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/count")
         //Call<ResponseCount> count(@Body RequestCount requestCount);
-
+        public ResponseCount CountAsync(RequestCount requestCount)
+        {
+            return new ResponseCount();
+        }
 
         //====== File methods ======
 
