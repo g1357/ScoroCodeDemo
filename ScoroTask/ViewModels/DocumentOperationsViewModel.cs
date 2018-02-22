@@ -282,6 +282,174 @@ namespace ScoroTask.ViewModels
                 return _deleteCommand;
             }
         }
+        //============ Change Documant ============
+        private RelayCommand _changeCommand;
+        public RelayCommand ChangeCommand
+        {
+            get
+            {
+                if (_changeCommand == null)
+                {
+                    _changeCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestUpdate requestUpdate;
+                        Query query = new Query("tasks");
+                        query.equalTo("_id", "ynztmonusP");
+                        UpdateInfo updateInfo = new UpdateInfo();
+                        Dictionary<string, object> dic = new Dictionary<string, object>();
+                        dic.Add("bossComment", "Do it now!");
+                        updateInfo.Info.Add("$set", dic);
+
+                        requestUpdate = new RequestUpdate(stateHolder, "tasks", query, updateInfo, 10);
+                        ResponseUpdate responseUpdate = await sc.UpdateAsync(requestUpdate);
+
+                        Error = responseUpdate.Error;
+                        ErrorCode = responseUpdate.ErrCode;
+                        ErrorMessage = responseUpdate.ErrMsg;
+                        if (!Error)
+                        {
+                            Document = string.Empty;
+                            var dictionary = responseUpdate.Result.Docs;
+                            foreach (var item in dictionary)
+                            {
+                                Document += $"_id : {item}\n";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _changeCommand;
+            }
+        }
+        //============ Change by Id Documant ============
+        private RelayCommand _changeByIdCommand;
+        public RelayCommand ChangeByIdCommand
+        {
+            get
+            {
+                if (_changeByIdCommand == null)
+                {
+                    _changeByIdCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestRemove requestRemove;
+                        Dictionary<string, object> query = new Dictionary<string, object>();
+                        query.Add("_id", "9CkCd3BsdO");
+
+                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
+                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+
+                        Error = responseRemove.Error;
+                        ErrorCode = responseRemove.ErrCode;
+                        ErrorMessage = responseRemove.ErrMsg;
+                        if (!Error)
+                        {
+                            Document = string.Empty;
+                            var dictionary = responseRemove.Result.Docs;
+                            foreach (var item in dictionary)
+                            {
+                                Document += $"_id : {item}\n";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _changeByIdCommand;
+            }
+        }
+        //============ Request Documant ============
+        private RelayCommand _requestCommand;
+        public RelayCommand RequestCommand
+        {
+            get
+            {
+                if (_requestCommand == null)
+                {
+                    _requestCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestRemove requestRemove;
+                        Dictionary<string, object> query = new Dictionary<string, object>();
+                        query.Add("_id", "9CkCd3BsdO");
+
+                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
+                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+
+                        Error = responseRemove.Error;
+                        ErrorCode = responseRemove.ErrCode;
+                        ErrorMessage = responseRemove.ErrMsg;
+                        if (!Error)
+                        {
+                            Document = string.Empty;
+                            var dictionary = responseRemove.Result.Docs;
+                            foreach (var item in dictionary)
+                            {
+                                Document += $"_id : {item}\n";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _requestCommand;
+            }
+        }
+        //============ Request of Quantity Documant ============
+        private RelayCommand _requestQtyCommand;
+        public RelayCommand RequestQtyCommand
+        {
+            get
+            {
+                if (_requestQtyCommand == null)
+                {
+                    _requestQtyCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestRemove requestRemove;
+                        Dictionary<string, object> query = new Dictionary<string, object>();
+                        query.Add("_id", "9CkCd3BsdO");
+
+                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
+                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+
+                        Error = responseRemove.Error;
+                        ErrorCode = responseRemove.ErrCode;
+                        ErrorMessage = responseRemove.ErrMsg;
+                        if (!Error)
+                        {
+                            Document = string.Empty;
+                            var dictionary = responseRemove.Result.Docs;
+                            foreach (var item in dictionary)
+                            {
+                                Document += $"_id : {item}\n";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _requestQtyCommand;
+            }
+        }
 
     }
 }

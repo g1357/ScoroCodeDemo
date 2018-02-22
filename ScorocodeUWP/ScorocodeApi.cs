@@ -159,15 +159,32 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/update")
         //Call<ResponseUpdate> update(@Body RequestUpdate requestUpdate);
-        public ResponseUpdate UpdateAsync(RequestUpdate requestUpdate)
+        public async Task<ResponseUpdate> UpdateAsync(RequestUpdate requestUpdate)
         {
-            return new ResponseUpdate(new ResponseUpdate.Results());
+            var uri = new Uri(baseUri + @"api/v1/data/update");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestUpdate);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseUpdate.Results results = new ResponseUpdate.Results();
+            ResponseUpdate responseRemove = new ResponseUpdate(results);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseRemove = JsonConvert.DeserializeObject<ResponseUpdate>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseRemove.Error = true;
+                responseRemove.ErrCode = "";
+                responseRemove.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseRemove;
         }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/updatebyid")
         //Call<ResponseUpdateById> updateById(@Body RequestUpdateById requestUpdateById);
-        public ResponseUpdateById UpdateByIdAsync(RequestUpdateById requestUpdateById)
+        public async Task<ResponseUpdateById> UpdateByIdAsync(RequestUpdateById requestUpdateById)
         {
             return new ResponseUpdateById();
         }
@@ -175,7 +192,7 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/find")
         //Call<ResponseString> find(@Body RequestFind requestFind);
-        public ResponseString FindAsync(RequestFind requestFind)
+        public async Task<ResponseString> FindAsync(RequestFind requestFind)
         {
             return new ResponseString();
         }
@@ -183,7 +200,7 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/count")
         //Call<ResponseCount> count(@Body RequestCount requestCount);
-        public ResponseCount CountAsync(RequestCount requestCount)
+        public async Task<ResponseCount> CountAsync(RequestCount requestCount)
         {
             return new ResponseCount();
         }

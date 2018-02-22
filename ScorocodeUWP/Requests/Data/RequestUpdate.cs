@@ -27,13 +27,13 @@ namespace ScorocodeUWP.Requests.Data
         [JsonProperty("limit")]
         private int limit;
 
-        public RequestUpdate(ScorocodeCoreInfo stateHolder, string collectionName,
+        public RequestUpdate(ScorocodeSdkStateHolder stateHolder, string collectionName,
             Query query, UpdateInfo doc, int limit)
         {
-            this.app = stateHolder.getApplicationId();
-            this.cli = stateHolder.getClientKey();
-            this.acc = stateHolder.getMasterKey();
-            this.sess = stateHolder.getSessionId();
+            this.app = stateHolder.ApplicationId;
+            this.cli = stateHolder.ClientKey;
+            this.acc = stateHolder.MasterKey;
+            this.sess = stateHolder.SessionId;
             this.coll = collectionName;
             if (query != null)
             {

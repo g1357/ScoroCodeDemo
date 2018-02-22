@@ -25,7 +25,7 @@ namespace ScorocodeUWP.Responses.Data
             [JsonProperty("count")]
             public int Count;
             [JsonProperty("docs")]
-            private List<string> Docs;
+            public List<string> Docs;
         }
     }
 }

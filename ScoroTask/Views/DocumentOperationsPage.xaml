@@ -122,6 +122,7 @@
                     The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                     Place your content here.
                     -->
+                    <Button Content="Change Document" Command="{x:Bind Path=ViewModel.ChangeCommand}" Margin="10" VerticalAlignment="Top"/>
 
                 </Grid>
             </PivotItem>
@@ -131,6 +132,7 @@
                     The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                     Place your content here.
                     -->
+                    <Button Content="Change Document by Id" Command="{x:Bind Path=ViewModel.ChangeByIdCommand}" Margin="10" VerticalAlignment="Top"/>
 
                 </Grid>
             </PivotItem>
@@ -140,6 +142,7 @@
                     The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                     Place your content here.
                     -->
+                    <Button Content="Request Document" Command="{x:Bind Path=ViewModel.RequestCommand}" Margin="10" VerticalAlignment="Top"/>
 
                 </Grid>
             </PivotItem>
@@ -149,6 +152,7 @@
                     The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                     Place your content here.
                     -->
+                    <Button Content="Request Qyantity of Documents" Command="{x:Bind Path=ViewModel.RequestQtyCommand}" Margin="10" VerticalAlignment="Top"/>
 
                 </Grid>
             </PivotItem>
