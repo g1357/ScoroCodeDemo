@@ -340,20 +340,24 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestRemove requestRemove;
-                        Dictionary<string, object> query = new Dictionary<string, object>();
-                        query.Add("_id", "9CkCd3BsdO");
+                        RequestUpdateById requestUpdateById;
+                        QueryInfo query = new QueryInfo();
+                        query.Add("_id", "AOQK3KrCE6");
+                        UpdateInfo updateInfo = new UpdateInfo();
+                        Dictionary<string, object> dic = new Dictionary<string, object>();
+                        dic.Add("bossComment", "ReDo it job!!");
+                        updateInfo.Info.Add("$set", dic);
 
-                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
-                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+                        requestUpdateById = new RequestUpdateById(stateHolder, "tasks", query, updateInfo);
+                        ResponseUpdateById responseUpdateById = await sc.UpdateByIdAsync(requestUpdateById);
 
-                        Error = responseRemove.Error;
-                        ErrorCode = responseRemove.ErrCode;
-                        ErrorMessage = responseRemove.ErrMsg;
+                        Error = responseUpdateById.Error;
+                        ErrorCode = responseUpdateById.ErrCode;
+                        ErrorMessage = responseUpdateById.ErrMsg;
                         if (!Error)
                         {
                             Document = string.Empty;
-                            var dictionary = responseRemove.Result.Docs;
+                            var dictionary = responseUpdateById.getResult().GetContent();
                             foreach (var item in dictionary)
                             {
                                 Document += $"_id : {item}\n";
@@ -381,24 +385,23 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestRemove requestRemove;
-                        Dictionary<string, object> query = new Dictionary<string, object>();
-                        query.Add("_id", "9CkCd3BsdO");
+                        RequestFind requestFind;
+                        Query query = new Query("tasks");
+                        query.equalTo("_id", "AOQK3KrCE6");
+                        SortInfo sortInfo = new SortInfo();
+                        sortInfo.SetAscendingFor("updatedAt");
+                        List<string> fields = new List<string>()
+                        { "_id", "bossComment", "Closed", "name", "Done", "detailed" };
 
-                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
-                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+                        requestFind = new RequestFind(stateHolder, "tasks", query, sortInfo, fields, 10, 0);
+                        ResponseString responseString = await sc.FindAsync(requestFind);
 
-                        Error = responseRemove.Error;
-                        ErrorCode = responseRemove.ErrCode;
-                        ErrorMessage = responseRemove.ErrMsg;
+                        Error = responseString.Error;
+                        ErrorCode = responseString.ErrCode;
+                        ErrorMessage = responseString.ErrMsg;
                         if (!Error)
                         {
-                            Document = string.Empty;
-                            var dictionary = responseRemove.Result.Docs;
-                            foreach (var item in dictionary)
-                            {
-                                Document += $"_id : {item}\n";
-                            }
+                            Document = responseString.Result;
                         }
                     },
                     () =>
@@ -422,24 +425,19 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestRemove requestRemove;
-                        Dictionary<string, object> query = new Dictionary<string, object>();
-                        query.Add("_id", "9CkCd3BsdO");
+                        RequestCount requestCount;
+                        Query query = new Query("tasks");
+                        query.equalTo("bossComment", "Good Job!");
 
-                        requestRemove = new RequestRemove(stateHolder, "tasks", query, 10);
-                        ResponseRemove responseRemove = await sc.RemoveAsync(requestRemove);
+                        requestCount = new RequestCount(stateHolder, "tasks", query);
+                        ResponseCount responseCount = await sc.CountAsync(requestCount);
 
-                        Error = responseRemove.Error;
-                        ErrorCode = responseRemove.ErrCode;
-                        ErrorMessage = responseRemove.ErrMsg;
+                        Error = responseCount.Error;
+                        ErrorCode = responseCount.ErrCode;
+                        ErrorMessage = responseCount.ErrMsg;
                         if (!Error)
                         {
-                            Document = string.Empty;
-                            var dictionary = responseRemove.Result.Docs;
-                            foreach (var item in dictionary)
-                            {
-                                Document += $"_id : {item}\n";
-                            }
+                            Document = responseCount.Result.ToString();
                         }
                     },
                     () =>

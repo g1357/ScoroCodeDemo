@@ -186,7 +186,23 @@ namespace ScorocodeUWP
         //Call<ResponseUpdateById> updateById(@Body RequestUpdateById requestUpdateById);
         public async Task<ResponseUpdateById> UpdateByIdAsync(RequestUpdateById requestUpdateById)
         {
-            return new ResponseUpdateById();
+            var uri = new Uri(baseUri + @"api/v1/data/updatebyid");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestUpdateById);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseUpdateById responseUpdateById = new ResponseUpdateById();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseUpdateById = JsonConvert.DeserializeObject<ResponseUpdateById>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseUpdateById.Error = true;
+                responseUpdateById.ErrCode = "";
+                responseUpdateById.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseUpdateById;
         }
 
         //@Headers({ "Content-Type: application/json"})
@@ -194,7 +210,23 @@ namespace ScorocodeUWP
         //Call<ResponseString> find(@Body RequestFind requestFind);
         public async Task<ResponseString> FindAsync(RequestFind requestFind)
         {
-            return new ResponseString();
+            var uri = new Uri(baseUri + @"api/v1/data/find");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestFind);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseString responseString = new ResponseString();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseString = JsonConvert.DeserializeObject<ResponseString>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseString.Error = true;
+                responseString.ErrCode = "";
+                responseString.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseString;
         }
 
         //@Headers({ "Content-Type: application/json"})
@@ -202,7 +234,23 @@ namespace ScorocodeUWP
         //Call<ResponseCount> count(@Body RequestCount requestCount);
         public async Task<ResponseCount> CountAsync(RequestCount requestCount)
         {
-            return new ResponseCount();
+            var uri = new Uri(baseUri + @"api/v1/data/count");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCount);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCount responseCount = new ResponseCount();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCount = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCount.Error = true;
+                responseCount.ErrCode = "";
+                responseCount.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCount;
         }
 
         //====== File methods ======

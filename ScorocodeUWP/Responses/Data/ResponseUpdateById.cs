@@ -10,15 +10,15 @@ namespace ScorocodeUWP.Responses.Data
     public class ResponseUpdateById : ResponseCodes
     {
         [JsonProperty("result")]
-        private Dictionary<string, object> result;
+        private Dictionary<string, object> Result;
         public DocumentInfo getResult()
         {
-            return new DocumentInfo(result);
+            return new DocumentInfo(Result);
         }
 
         public void setResult(Dictionary<string, object> result)
         {
-            this.result = result;
+            Result = result;
         }
     }
 }

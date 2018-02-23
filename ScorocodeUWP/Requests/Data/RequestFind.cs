@@ -31,14 +31,14 @@ namespace ScorocodeUWP.Requests.Data
         [JsonProperty("skip")]
         private int skip;
 
-        public RequestFind(ScorocodeCoreInfo stateHolder, string coll,
+        public RequestFind(ScorocodeSdkStateHolder stateHolder, string coll,
                 Query query, SortInfo sort, List<String> fields,
                 int limit, int skip)
         {
-            this.app = stateHolder.getApplicationId();
-            this.cli = stateHolder.getClientKey();
-            this.acc = stateHolder.getMasterKey();
-            this.sess = stateHolder.getSessionId();
+            this.app = stateHolder.ApplicationId;
+            this.cli = stateHolder.ClientKey;
+            this.acc = stateHolder.MasterKey;
+            this.sess = stateHolder.SessionId;
             this.coll = coll;
 
             if (query != null)
