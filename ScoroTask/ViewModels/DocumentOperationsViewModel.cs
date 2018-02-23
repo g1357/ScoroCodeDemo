@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MongoDB.Bson.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using ScorocodeUWP;
 using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Data;
@@ -401,7 +406,76 @@ namespace ScoroTask.ViewModels
                         ErrorMessage = responseString.ErrMsg;
                         if (!Error)
                         {
-                            Document = responseString.Result;
+                            string respStr = responseString.Result;
+                            byte[] buffer = Convert.FromBase64String(respStr);
+                            string text = Encoding.UTF8.GetString(buffer);
+                            Document = text;
+                            using (var stream = new MemoryStream(buffer))
+                            using (var reader = new BsonBinaryReader(stream))
+                            {
+                                bool exit = false;
+                                reader.ReadStartDocument();
+                                while (!reader.IsAtEndOfFile() && !exit)
+                                {
+                                    var bsonType = reader.ReadBsonType(); //.CurrentBsonType;
+                                    switch (bsonType)
+                                    {
+                                        case MongoDB.Bson.BsonType.Array:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Binary:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Boolean:
+                                            break;
+                                        case MongoDB.Bson.BsonType.DateTime:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Decimal128:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Document:
+                                            reader.ReadStartDocument();
+                                            Document += "\nDocument Start";
+                                            break;
+                                        case MongoDB.Bson.BsonType.Double:
+                                            break;
+                                        case MongoDB.Bson.BsonType.EndOfDocument:
+                                            exit = true;
+                                            break;
+                                        case MongoDB.Bson.BsonType.Int32:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Int64:
+                                            break;
+                                        case MongoDB.Bson.BsonType.JavaScript:
+                                            break;
+                                        case MongoDB.Bson.BsonType.JavaScriptWithScope:
+                                            break;
+                                        case MongoDB.Bson.BsonType.MaxKey:
+                                            break;
+                                        case MongoDB.Bson.BsonType.MinKey:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Null:
+                                            break;
+                                        case MongoDB.Bson.BsonType.ObjectId:
+                                            break;
+                                        case MongoDB.Bson.BsonType.RegularExpression:
+                                            break;
+                                        case MongoDB.Bson.BsonType.String:
+                                            string name = reader.ReadName();
+                                            Document += $"\nName: {name}";
+                                            string str = reader.ReadString();
+                                            Document += $"\nString: {str}";
+                                            break;
+                                        case MongoDB.Bson.BsonType.Symbol:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Timestamp:
+                                            break;
+                                        case MongoDB.Bson.BsonType.Undefined:
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                                reader.ReadEndDocument();
+                            }
+
                         }
                     },
                     () =>
@@ -410,6 +484,29 @@ namespace ScoroTask.ViewModels
                     });
                 }
                 return _requestCommand;
+            }
+        }
+        public static string ToBson<T>(T value)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (Newtonsoft.Json.Bson.BsonWriter datawriter = new Newtonsoft.Json.Bson.BsonWriter(ms))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(datawriter, value);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+        }
+
+        public static T FromBson<T>(string base64data)
+        {
+            byte[] data = Convert.FromBase64String(base64data);
+
+            using (MemoryStream ms = new MemoryStream(data))
+            using (Newtonsoft.Json.Bson.BsonReader reader = new Newtonsoft.Json.Bson.BsonReader(ms))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                return serializer.Deserialize<T>(reader);
             }
         }
         //============ Request of Quantity Documant ============
