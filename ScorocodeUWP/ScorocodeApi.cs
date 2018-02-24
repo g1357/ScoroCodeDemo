@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Application;
 using ScorocodeUWP.Requests.Data;
+using ScorocodeUWP.Requests.Fikes;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.WebApi;
@@ -258,6 +259,26 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/upload")
         //Call<ResponseCodes> upload(@Body RequestUpload requestUpload);
+        public async Task<ResponseCodes> UploadAsync(RequestUpload requestUpload)
+        {
+            var uri = new Uri(baseUri + @"api/v1/upload");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestUpload);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = new ResponseCodes();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
 
         //@GET("api/v1/getfile/{app}/{coll}/{field}/{docId}/{file}")

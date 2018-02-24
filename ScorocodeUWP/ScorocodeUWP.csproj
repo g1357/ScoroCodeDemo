@@ -125,6 +125,7 @@
     <Compile Include="Requests\Data\RequestRemove.cs" />
     <Compile Include="Requests\Data\RequestUpdate.cs" />
     <Compile Include="Requests\Data\RequestUpdateById.cs" />
+    <Compile Include="Requests\Fikes\RequestUpload.cs" />
     <Compile Include="Requests\User\RequestLoginUser.cs" />
     <Compile Include="Requests\User\RequestLogoutUser.cs" />
     <Compile Include="Requests\Application\RequestStatistic.cs" />
