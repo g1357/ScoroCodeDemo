@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using epesu.bson;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MongoDB.Bson.IO;
@@ -396,7 +397,7 @@ namespace ScoroTask.ViewModels
                         SortInfo sortInfo = new SortInfo();
                         sortInfo.SetAscendingFor("updatedAt");
                         List<string> fields = new List<string>()
-                        { "_id", "bossComment", "Closed", "name", "Done", "detailed" };
+                        { "_id", "bossComment", "Closed", "name", "Done", "detailed", "removeACL", "user" };
 
                         requestFind = new RequestFind(stateHolder, "tasks", query, sortInfo, fields, 10, 0);
                         ResponseString responseString = await sc.FindAsync(requestFind);
@@ -407,75 +408,8 @@ namespace ScoroTask.ViewModels
                         if (!Error)
                         {
                             string respStr = responseString.Result;
-                            byte[] buffer = Convert.FromBase64String(respStr);
-                            string text = Encoding.UTF8.GetString(buffer);
+                            string text = Bson.ConvertToJson(respStr);
                             Document = text;
-                            using (var stream = new MemoryStream(buffer))
-                            using (var reader = new BsonBinaryReader(stream))
-                            {
-                                bool exit = false;
-                                reader.ReadStartDocument();
-                                while (!reader.IsAtEndOfFile() && !exit)
-                                {
-                                    var bsonType = reader.ReadBsonType(); //.CurrentBsonType;
-                                    switch (bsonType)
-                                    {
-                                        case MongoDB.Bson.BsonType.Array:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Binary:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Boolean:
-                                            break;
-                                        case MongoDB.Bson.BsonType.DateTime:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Decimal128:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Document:
-                                            reader.ReadStartDocument();
-                                            Document += "\nDocument Start";
-                                            break;
-                                        case MongoDB.Bson.BsonType.Double:
-                                            break;
-                                        case MongoDB.Bson.BsonType.EndOfDocument:
-                                            exit = true;
-                                            break;
-                                        case MongoDB.Bson.BsonType.Int32:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Int64:
-                                            break;
-                                        case MongoDB.Bson.BsonType.JavaScript:
-                                            break;
-                                        case MongoDB.Bson.BsonType.JavaScriptWithScope:
-                                            break;
-                                        case MongoDB.Bson.BsonType.MaxKey:
-                                            break;
-                                        case MongoDB.Bson.BsonType.MinKey:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Null:
-                                            break;
-                                        case MongoDB.Bson.BsonType.ObjectId:
-                                            break;
-                                        case MongoDB.Bson.BsonType.RegularExpression:
-                                            break;
-                                        case MongoDB.Bson.BsonType.String:
-                                            string name = reader.ReadName();
-                                            Document += $"\nName: {name}";
-                                            string str = reader.ReadString();
-                                            Document += $"\nString: {str}";
-                                            break;
-                                        case MongoDB.Bson.BsonType.Symbol:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Timestamp:
-                                            break;
-                                        case MongoDB.Bson.BsonType.Undefined:
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                                reader.ReadEndDocument();
-                            }
-
                         }
                     },
                     () =>
@@ -486,29 +420,7 @@ namespace ScoroTask.ViewModels
                 return _requestCommand;
             }
         }
-        public static string ToBson<T>(T value)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            using (Newtonsoft.Json.Bson.BsonWriter datawriter = new Newtonsoft.Json.Bson.BsonWriter(ms))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(datawriter, value);
-                return Convert.ToBase64String(ms.ToArray());
-            }
 
-        }
-
-        public static T FromBson<T>(string base64data)
-        {
-            byte[] data = Convert.FromBase64String(base64data);
-
-            using (MemoryStream ms = new MemoryStream(data))
-            using (Newtonsoft.Json.Bson.BsonReader reader = new Newtonsoft.Json.Bson.BsonReader(ms))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                return serializer.Deserialize<T>(reader);
-            }
-        }
         //============ Request of Quantity Documant ============
         private RelayCommand _requestQtyCommand;
         public RelayCommand RequestQtyCommand

@@ -382,6 +382,10 @@
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\epesu.bson\epesu.bson.csproj">
+      <Project>{bd603eb6-b154-4f70-a0ad-52ef4b7f4e0f}</Project>
+      <Name>epesu.bson</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScorocodeUWP\ScorocodeUWP.csproj">
       <Project>{b918d6f8-28f7-444d-a0bc-75be04ffe185}</Project>
       <Name>ScorocodeUWP</Name>
