@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace ScorocodeUWP.Responses.Data
 {
-    public class ResponseCount : ResponseCodes
+    public class ResponseResult : ResponseCodes
     {
         [JsonProperty("result")]
-        private int result;
-        public int Result
-        {
-            get => result;
-            set { result = value; }
-        }
+        public int Result;
     }
 }

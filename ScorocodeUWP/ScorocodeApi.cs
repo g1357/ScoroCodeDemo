@@ -8,8 +8,10 @@ using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Application;
 using ScorocodeUWP.Requests.Data;
 using ScorocodeUWP.Requests.Files;
+using ScorocodeUWP.Requests.Messages;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Data;
+using ScorocodeUWP.Responses.Messages;
 using ScorocodeUWP.WebApi;
 using Windows.Web.Http;
 
@@ -233,25 +235,25 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/data/count")
         //Call<ResponseCount> count(@Body RequestCount requestCount);
-        public async Task<ResponseCount> CountAsync(RequestCount requestCount)
+        public async Task<ResponseResult> CountAsync(RequestCount requestCount)
         {
             var uri = new Uri(baseUri + @"api/v1/data/count");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestCount);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCount responseCount = new ResponseCount();
+            ResponseResult responseResult = new ResponseResult();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCount = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+                responseResult = JsonConvert.DeserializeObject<ResponseResult>(httpResponse.Content.ToString());
             }
             else
             {
-                responseCount.Error = true;
-                responseCount.ErrCode = "";
-                responseCount.ErrMsg = "Ошибка HttpClient.";
+                responseResult.Error = true;
+                responseResult.ErrCode = "";
+                responseResult.ErrMsg = "Ошибка HttpClient.";
             }
-            return responseCount;
+            return responseResult;
         }
 
         //====== File methods ======
@@ -332,27 +334,103 @@ namespace ScorocodeUWP
             return responseCodes;
         }
 
-
         ///====== Message methods ======
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/sendemail")
         //Call<ResponseCodes> sendEmail(@Body RequestSendEmail requestSendEmail);
+        public async Task<ResponseCount> SendEmailAsync(RequestSendEmail requestSendEmaile)
+        {
+            var uri = new Uri(baseUri + @"api/v1/sendemail");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestSendEmaile);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCount responseCount = new ResponseCount();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCount = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCount.Error = true;
+                responseCount.ErrCode = "";
+                responseCount.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCount;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/sendpush")
         //Call<ResponseCodes> sendPush(@Body RequestSendPush requestSendPush);
+        public async Task<ResponseCount> SendPushAsync(RequestSendPush requestSendPush)
+        {
+            var uri = new Uri(baseUri + @"api/v1/sendpush");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestSendPush);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCount responseCount = new ResponseCount();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCount = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCount.Error = true;
+                responseCount.ErrCode = "";
+                responseCount.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCount;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/sendsms")
         //Call<ResponseCodes> sendSms(@Body RequestSendSms requestSendSms);
+        public async Task<ResponseCount> SendSmsAsync(RequestSendSms requestSendSms)
+        {
+            var uri = new Uri(baseUri + @"api/v1/sendsms");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestSendSms);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCount responseCount = new ResponseCount();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCount = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCount.Error = true;
+                responseCount.ErrCode = "";
+                responseCount.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCount;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/scripts")
         //Call<ResponseCodes> sendScriptTask(@Body RequestSendScriptTask requestSendScriptTask);
+        public async Task<ResponseCount> SendScriptTaskAsync(RequestSendScriptTask requestSendScriptTask)
+        {
+            var uri = new Uri(baseUri + @"api/v1/scripts");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestSendScriptTask);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCount responseCount = new ResponseCount();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCount = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCount.Error = true;
+                responseCount.ErrCode = "";
+                responseCount.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCount;
+        }
 
 
         //====== Application methods ======

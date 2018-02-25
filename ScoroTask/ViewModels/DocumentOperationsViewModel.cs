@@ -439,14 +439,14 @@ namespace ScoroTask.ViewModels
                         query.equalTo("bossComment", "Good Job!");
 
                         requestCount = new RequestCount(stateHolder, "tasks", query);
-                        ResponseCount responseCount = await sc.CountAsync(requestCount);
+                        ResponseResult responseResult = await sc.CountAsync(requestCount);
 
-                        Error = responseCount.Error;
-                        ErrorCode = responseCount.ErrCode;
-                        ErrorMessage = responseCount.ErrMsg;
+                        Error = responseResult.Error;
+                        ErrorCode = responseResult.ErrCode;
+                        ErrorMessage = responseResult.ErrMsg;
                         if (!Error)
                         {
-                            Document = responseCount.Result.ToString();
+                            Document = responseResult.Result.ToString();
                         }
                     },
                     () =>

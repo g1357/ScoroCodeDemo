@@ -449,4 +449,26 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   <data name="FileOperations_PivotItem3.Header" xml:space="preserve">
     <value>Delete File</value>
   </data>
+  <data name="MessageOperations_Pivot.Text" xml:space="preserve">
+    <value>MessageOperations</value>
+    <comment>Page title for MessageOperations</comment>
+  </data>
+  <data name="MessageOperations_PivotItem1.Header" xml:space="preserve">
+    <value>E-mail Message</value>
+    <comment>First Pivot item title for MessageOperations</comment>
+  </data>
+  <data name="MessageOperations_PivotItem2.Header" xml:space="preserve">
+    <value>Push Message</value>
+    <comment>Second Pivot item title for MessageOperations</comment>
+  </data>
+  <data name="Shell_MessageOperations" xml:space="preserve">
+    <value>MessageOperations</value>
+    <comment>Navigation view item name for MessageOperations</comment>
+  </data>
+  <data name="MessageOperations_PivotItem3.Header" xml:space="preserve">
+    <value>SMS Messge</value>
+  </data>
+  <data name="MessageOperations_PivotItem4.Header" xml:space="preserve">
+    <value>Send Script Task</value>
+  </data>
 </root>
