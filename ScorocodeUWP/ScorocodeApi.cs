@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Application;
 using ScorocodeUWP.Requests.Data;
-using ScorocodeUWP.Requests.Fikes;
+using ScorocodeUWP.Requests.Files;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.WebApi;
@@ -265,6 +265,58 @@ namespace ScorocodeUWP
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestUpload);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseString responseString = new ResponseString();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseString = JsonConvert.DeserializeObject<ResponseString>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseString.Error = true;
+                responseString.ErrCode = "";
+                responseString.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseString;
+        }
+
+        //@GET("api/v1/getfile/{app}/{coll}/{field}/{docId}/{file}")
+        //Call<ResponseCodes> getFile(
+        //        @NonNull @Path("app") String app,
+        //        @NonNull @Path("coll") String coll,
+        //        @NonNull @Path("field") String field,
+        //        @NonNull @Path("docId") String docId,
+        //        @NonNull @Path("file") String file);
+        public async Task<string> GetFileAsync(string app, string coll,
+            string field, string docId, string file)
+        {
+            var uri = new Uri(baseUri + $"api/v1/getfile/{app}/{coll}/{field}/{docId}/{file}");
+            HttpResponseMessage httpResponse = await cmd.GetAsync(uri);
+            //ResponseCodes responseCodes = new ResponseCodes();
+
+            //if (httpResponse.IsSuccessStatusCode)
+            //{
+            //    responseCodes = JsonConvert.DeserializeObject<ResponseCount>(httpResponse.Content.ToString());
+            //}
+            //else
+            //{
+            //    responseCodes.Error = true;
+            //    responseCodes.ErrCode = "";
+            //    responseCodes.ErrMsg = "Ошибка HttpClient.";
+            //}
+            return httpResponse.Content.ToString();
+        }
+
+
+        //@Headers({ "Content-Type: application/json"})
+        //@POST("api/v1/deletefile")
+        //Call<ResponseCodes> deleteFile(@Body RequestFile requestDeleteFile);
+        public async Task<ResponseCodes> DeleteFileAsync(RequestFile requestDeleteFile)
+        {
+            var uri = new Uri(baseUri + @"api/v1/deletefile");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestDeleteFile);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
             ResponseCodes responseCodes = new ResponseCodes();
 
             if (httpResponse.IsSuccessStatusCode)
@@ -279,20 +331,6 @@ namespace ScorocodeUWP
             }
             return responseCodes;
         }
-
-
-        //@GET("api/v1/getfile/{app}/{coll}/{field}/{docId}/{file}")
-        //Call<ResponseCodes> getFile(
-        //        @NonNull @Path("app") String app,
-        //        @NonNull @Path("coll") String coll,
-        //        @NonNull @Path("field") String field,
-        //        @NonNull @Path("docId") String docId,
-        //        @NonNull @Path("file") String file);
-
-
-        //@Headers({ "Content-Type: application/json"})
-        //@POST("api/v1/deletefile")
-        //Call<ResponseCodes> deleteFile(@Body RequestFile requestDeleteFile);
 
 
         ///====== Message methods ======

@@ -6,41 +6,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorocodeUWP.Requests.Fikes
+namespace ScorocodeUWP.Requests.Files
 {
-    public class RequestUpload
+    public class RequestFile
     {
         [JsonProperty("app")]
-        private string app;
+        private String app;
         [JsonProperty("cli")]
-        private string cli;
+        private String cli;
         [JsonProperty("acc")]
-        private string acc;
+        private String acc;
         [JsonProperty("sess")]
-        private string sess;
+        private String sess;
         [JsonProperty("coll")]
-        private string coll;
+        private String coll;
         [JsonProperty("docId")]
-        private string docId;
+        private String docId;
         [JsonProperty("field")]
-        private string field;
+        private String field;
         [JsonProperty("file")]
-        private string file;
-        [JsonProperty("content")]
-        private string content; //in base 64 format
+        private String file;
 
-        public RequestUpload(ScorocodeSdkStateHolder stateHolder, string coll,
-                string docId, string field, string file, string content)
+        public RequestFile(ScorocodeSdkStateHolder stateHolder, string coll,
+                string docId, string field, string file)
         {
             this.app = stateHolder.ApplicationId;
             this.cli = stateHolder.ClientKey;
-            this.acc = stateHolder.getMasterOrFileKey;
+            this.acc = stateHolder.MasterOrFileKey;
             this.sess = stateHolder.SessionId;
             this.coll = coll;
             this.docId = docId;
             this.field = field;
             this.file = file;
-            this.content = content;
         }
     }
 }

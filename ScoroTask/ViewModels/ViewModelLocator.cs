@@ -35,7 +35,10 @@ namespace ScoroTask.ViewModels
             Register<ShareTargetViewModel, ShareTargetPage>();
             Register<UserOperationsViewModel, UserOperationsPage>();
             Register<DocumentOperationsViewModel, DocumentOperationsPage>();
+            Register<FileOperationsViewModel, FileOperationsPage>();
         }
+
+        public FileOperationsViewModel FileOperationsViewModel => ServiceLocator.Current.GetInstance<FileOperationsViewModel>();
 
         public DocumentOperationsViewModel DocumentOperationsViewModel => ServiceLocator.Current.GetInstance<DocumentOperationsViewModel>();
 

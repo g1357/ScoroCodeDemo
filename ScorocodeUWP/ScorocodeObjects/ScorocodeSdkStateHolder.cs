@@ -100,10 +100,10 @@ namespace ScorocodeUWP.ScorocodeObjects
             this.webSocket = webSocket;
         }
 
-        public string  getMasterOrFileKey => masterKey != null ? masterKey : fileKey;
+        public string  MasterOrFileKey => masterKey != null ? masterKey : fileKey;
 
-        public String getMasterOrMessageKey => masterKey != null ? masterKey : messageKey;
+        public String MasterOrMessageKey => masterKey != null ? masterKey : messageKey;
 
-        public String getMasterOrScriptKey => masterKey != null ? masterKey : scriptKey;
+        public String MasterOrScriptKey => masterKey != null ? masterKey : scriptKey;
     }
 }
