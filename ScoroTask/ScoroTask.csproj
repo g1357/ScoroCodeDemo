@@ -185,6 +185,7 @@
     <Compile Include="Services\ToastNotificationsService.Samples.cs" />
     <Compile Include="Services\WhatsNewDisplayService.cs" />
     <Compile Include="TemplateSelectors\SharedContentTemplateSelector.cs" />
+    <Compile Include="ViewModels\AppInformationViewModel.cs" />
     <Compile Include="ViewModels\BlankViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModel.cs" />
     <Compile Include="ViewModels\DocumentOperationsViewModel.cs" />
@@ -207,6 +208,9 @@
     <Compile Include="ViewModels\UserOperationsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WebViewViewModel.cs" />
+    <Compile Include="Views\AppInformationPage.xaml.cs">
+      <DependentUpon>AppInformationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
@@ -306,6 +310,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\AppInformationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BlankPage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -438,14 +438,50 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/stat")
         //Call<ResponseAppStatistic> getAppStatistic(@Body RequestStatistic requestStatistic);
-        public ResponseAppStatistic getAppStatistic(RequestStatistic requestStatistic)
+        public async Task<ResponseAppStatistic> GetAppStatistic(RequestStatistic requestStatistic)
         {
-            return new ResponseAppStatistic();
+            var uri = new Uri(baseUri + @"api/v1/stat");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestStatistic);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseAppStatistic responseAppStatistic = new ResponseAppStatistic();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseAppStatistic = JsonConvert.DeserializeObject<ResponseAppStatistic>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseAppStatistic.Error = true;
+                responseAppStatistic.ErrCode = "";
+                responseAppStatistic.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseAppStatistic;
         }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app")
         //Call<ResponseAppInfo> getApplicationInfo(@Body RequestAppInfo requestAppInfo);
+        public async Task<ResponseAppInfo> GetAppInformation(RequestAppInfo requestAppInfo)
+        {
+            var uri = new Uri(baseUri + @"api/v1/stat");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestAppInfo);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseAppInfo responseAppInfo = new ResponseAppInfo();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseAppInfo = JsonConvert.DeserializeObject<ResponseAppInfo>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseAppInfo.Error = true;
+                responseAppInfo.ErrCode = "";
+                responseAppInfo.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseAppInfo;
+        }
 
 
         //====== Collections methods ======

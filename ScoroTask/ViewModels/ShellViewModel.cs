@@ -182,6 +182,7 @@ namespace ScoroTask.ViewModels
             _primaryItems.Add(new ShellNavigationItem("Shell_DocumentOperations".GetLocalized(), Symbol.Document, typeof(DocumentOperationsViewModel).FullName));
             _primaryItems.Add(new ShellNavigationItem("Shell_FileOperations".GetLocalized(), Symbol.SyncFolder, typeof(FileOperationsViewModel).FullName));
             _primaryItems.Add(new ShellNavigationItem("Shell_MessageOperations".GetLocalized(), Symbol.Message, typeof(MessageOperationsViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_AppInformation".GetLocalized(), Symbol.Caption, typeof(AppInformationViewModel).FullName));
 
             _primaryItems.Add(new ShellNavigationItem("Shell_Blank".GetLocalized(), Symbol.Document, typeof(BlankViewModel).FullName));
             _primaryItems.Add(new ShellNavigationItem("Shell_WebView".GetLocalized(), Symbol.Document, typeof(WebViewViewModel).FullName));

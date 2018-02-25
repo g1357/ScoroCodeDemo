@@ -3,27 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 using ScorocodeUWP.ScorocodeObjects;
 
 namespace ScorocodeUWP.Requests.Application
 {
-    // Редакция 2.001 от 09.02.2018 ДГБ
-    // Basen on Java file
-    //  Created by Peter Staranchuk on 5/17/16
-
     public class RequestStatistic
     {
-        private String app;
-        private String cli;
-        private String acc;
+        [JsonProperty("app")]
+        private string app;
+        [JsonProperty("cli")]
+        private string cli;
+        [JsonProperty("acc")]
+        private string acc;
 
-        public RequestStatistic(ScorocodeCoreInfo stateHolder)
+        public RequestStatistic(ScorocodeSdkStateHolder stateHolder)
         {
-            this.app = stateHolder.getApplicationId();
-            this.cli = stateHolder.getClientKey();
-            this.acc = stateHolder.getMasterKey();
+            app = stateHolder.ApplicationId;
+            cli = stateHolder.ClientKey;
+            acc = stateHolder.MasterKey;
         }
-
     }
 }

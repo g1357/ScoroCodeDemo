@@ -471,4 +471,20 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   <data name="MessageOperations_PivotItem4.Header" xml:space="preserve">
     <value>Send Script Task</value>
   </data>
+  <data name="AppInformation_Pivot.Text" xml:space="preserve">
+    <value>AppInformation</value>
+    <comment>Page title for AppInformation</comment>
+  </data>
+  <data name="AppInformation_PivotItem1.Header" xml:space="preserve">
+    <value>Get App Statistic</value>
+    <comment>First Pivot item title for AppInformation</comment>
+  </data>
+  <data name="AppInformation_PivotItem2.Header" xml:space="preserve">
+    <value>Get App Information</value>
+    <comment>Second Pivot item title for AppInformation</comment>
+  </data>
+  <data name="Shell_AppInformation" xml:space="preserve">
+    <value>AppInformation</value>
+    <comment>Navigation view item name for AppInformation</comment>
+  </data>
 </root>
