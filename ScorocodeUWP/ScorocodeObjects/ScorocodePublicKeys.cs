@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScorocodeUWP.ScorocodeObjects
 {
-    class ScorocodePublicKeys
+    public class ScorocodePublicKeys
     {
         [JsonProperty("masterKey")]
         private string masterKey;

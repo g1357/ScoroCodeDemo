@@ -3,6 +3,11 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ScorocodeUWP;
+using ScorocodeUWP.Requests.Application;
+using ScorocodeUWP.Requests.Messages;
+using ScorocodeUWP.Responses;
+using ScorocodeUWP.Responses.Application;
+using ScorocodeUWP.Responses.Messages;
 using ScorocodeUWP.ScorocodeObjects;
 using ScoroTask.Helpers;
 using ScoroTask.Services;
@@ -53,20 +58,19 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestSendEmail requestSendEmail;
-                        Query query = new Query("tasks");
-                        query.equalTo("bossComment", "Good Job!");
-                        MessageEmail msg = new MessageEmail("scorotask@yandex.ru", "test Mesage", "Hello, Friend!");
+                        RequestStatistic requestStatistic = new RequestStatistic(stateHolder);
+                        ResponseAppStatistic responseAppStatistic = await sc.GetAppStatistic(requestStatistic);
 
-                        requestSendEmail = new RequestSendEmail(stateHolder, "tasks", query, msg);
-                        ResponseCount responseCount = await sc.GetAppStatistic(requestSendEmail);
-
-                        Error = responseCount.Error;
-                        ErrorCode = responseCount.ErrCode;
-                        ErrorMessage = responseCount.ErrMsg;
+                        Error = responseAppStatistic.Error;
+                        ErrorCode = responseAppStatistic.ErrCode;
+                        ErrorMessage = responseAppStatistic.ErrMsg;
                         if (!Error)
                         {
-                            Document = responseCount.count.ToString();
+                            var result = responseAppStatistic.result;
+                            Document = $"dataSize: {result.dataSize}";
+                            Document += $"\nfileaSize: {result.filesSize}";
+                            Document += $"\nindexSize: {result.indexSize}";
+                            Document += $"\nstore: {result.store}";
                         }
                     },
                     () =>
@@ -91,22 +95,15 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestSendPush requestSendPush;
-                        Query query = new Query("users");
-                        Dictionary<string, object> data = new Dictionary<string, object>();
+                        RequestAppInfo requestAppInfo = new RequestAppInfo(stateHolder);
+                        ResponseAppInfo responseAppInfo = await sc.GetAppInformation(requestAppInfo);
 
-                        MessagePush msg = new MessagePush("Test Push Notification", data);
-                        bool debug = true;
-
-                        requestSendPush = new RequestSendPush(stateHolder, "users", query, msg, debug);
-                        ResponseCount responseCount = await sc.G(requestSendPush);
-
-                        Error = responseCount.Error;
-                        ErrorCode = responseCount.ErrCode;
-                        ErrorMessage = responseCount.ErrMsg;
+                        Error = responseAppInfo.Error;
+                        ErrorCode = responseAppInfo.ErrCode;
+                        ErrorMessage = responseAppInfo.ErrMsg;
                         if (!Error)
                         {
-                            Document = responseCount.count.ToString();
+                            Document = responseAppInfo.ToString();
                         }
                     },
                     () =>

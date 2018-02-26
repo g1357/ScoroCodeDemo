@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,216 +9,100 @@ namespace ScorocodeUWP.ScorocodeObjects
 {
     public class ScorocodeApplicationInfo
     {
+        [JsonProperty("_id")]
         private string _id;
+        [JsonProperty("appId")]
         private string appId;
+        [JsonProperty("name")]
         private string name;
+        [JsonProperty("description")]
         private string description;
+        [JsonProperty("userId")]
         private string userId;
+        [JsonProperty("serverId")]
         private string serverId;
+        [JsonProperty("limits")]
         private Limits limits;
+        [JsonProperty("schemas")]
         private Dictionary<string, ScorocodeCollection> schemas;
+        [JsonProperty("accessKeys")]
         private ScorocodePublicKeys accessKeys;
+        [JsonProperty("clientKeys")]
         private ScorocodeClientKeys clientKeys;
+        [JsonProperty("readOnly")]
         private bool readOnly;
-        private ScorocodeACLPublic ACLPublic;
+        [JsonProperty("ACLPublic")]
+        private ScorocodeACLPublic AclPublic;
+        [JsonProperty("settings")]
         private Settings settings;
+        [JsonProperty("storage")]
         private StorageInfo storage;
+        [JsonProperty("stringId")]
         private string stringId;
+        [JsonProperty("npm")]
         private string npm;
 
         public ScorocodeApplicationInfo(string id, string appId, string name, string description, string userId,
                 string serverId, Limits limits, Dictionary<string, ScorocodeCollection> schemas, ScorocodePublicKeys accessKeys,
                 ScorocodeClientKeys clientKeys, bool readOnly, ScorocodeACLPublic ACLPublic,
-                Settings settings, StorageInfo storage, string stringId, string npm) {
-        this._id = id;
-        this.appId = appId;
-        this.name = name;
-        this.description = description;
-        this.userId = userId;
-        this.serverId = serverId;
-        this.limits = limits;
-        this.schemas = schemas;
-        this.accessKeys = accessKeys;
-        this.clientKeys = clientKeys;
-        this.readOnly = readOnly;
-        this.ACLPublic = ACLPublic;
-        this.settings = settings;
-        this.storage = storage;
-        this.stringId = stringId;
-        this.npm = npm;
-    }
-
-    public String getId()
-    {
-        return _id == null ? "" : _id;
-    }
-
-    public String getAppId()
-    {
-        return appId == null ? "" : appId;
-    }
-
-    @NonNull
-
-    public String getApplicationName()
-    {
-
-        return name == null ? "" : name;
-
-    }
-
-
-
-    @NonNull
-
-    public String getDescription()
-    {
-
-        return description == null ? "" : description;
-
-    }
-
-
-
-    @NonNull
-
-    public String getUserId()
-    {
-
-        return userId == null ? "" : userId;
-
-    }
-
-
-
-    @NonNull
-
-    public String getServerId()
-    {
-
-        return serverId == null ? "" : serverId;
-
-    }
-
-
-
-    @NonNull
-
-    public Limits getLimits()
-    {
-
-        return limits == null ? new Limits(0L, 0L, 0L, 0L, 0L, 0L, 0L) : limits;
-
-    }
-
-
-
-    @NonNull
-
-    public List<ScorocodeCollection> getCollections()
-    {
-
-        List<ScorocodeCollection> scorocodeCollectionList = new ArrayList<>();
-
-        for (String key : schemas.keySet())
+                Settings settings, StorageInfo storage, string stringId, string npm)
         {
-
-            scorocodeCollectionList.add(schemas.get(key));
-
+            this._id = id;
+            this.appId = appId;
+            this.name = name;
+            this.description = description;
+            this.userId = userId;
+            this.serverId = serverId;
+            this.limits = limits;
+            this.schemas = schemas;
+            this.accessKeys = accessKeys;
+            this.clientKeys = clientKeys;
+            this.readOnly = readOnly;
+            this.AclPublic = ACLPublic;
+            this.settings = settings;
+            this.storage = storage;
+            this.stringId = stringId;
+            this.npm = npm;
         }
 
-        return scorocodeCollectionList;
+        public string Id => _id ?? "";
 
+        public string AppId => appId ?? "";
+
+        public string ApplicationName => name ?? "";
+
+        public string Description => description ?? "";
+
+        public string UserId => userId ?? "";
+
+        public string ServerId => serverId ?? "";
+
+        public Limits Limits => limits ?? new Limits(0L, 0L, 0L, 0L, 0L, 0L, 0L);
+
+        public List<ScorocodeCollection> Collections()
+        {
+            List<ScorocodeCollection> scorocodeCollectionList = new List<ScorocodeCollection>();
+
+            foreach (var item in schemas)
+            {
+                scorocodeCollectionList.Add(item.Value);
+            }
+            return scorocodeCollectionList;
+        }
+
+        public ScorocodePublicKeys AccessKeys => accessKeys ?? new ScorocodePublicKeys("", "", "", "", "");
+
+        public ScorocodeClientKeys ClientKeys => clientKeys ?? new ScorocodeClientKeys("", "", "", "");
+
+        public bool IsReadonly => readOnly;
+
+        public ScorocodeACLPublic ACLPublic => AclPublic ?? new ScorocodeACLPublic(false, false, false, false);
+        public Settings GetSettings => settings ?? new Settings(false, 0L, "", "", (new Dictionary<String, MailTemplate>()), "");
+
+        public StorageInfo Storage => storage ?? new StorageInfo("", "");
+
+        public string StringId => stringId ?? "";
+
+        public string Npm => npm ?? "";
     }
-
-
-
-    @NonNull
-
-    public ScorocodePublicKeys getAccessKeys()
-    {
-
-        return accessKeys == null ? new ScorocodePublicKeys("", "", "", "", "") : accessKeys;
-
-    }
-
-
-
-    @NonNull
-
-    public ScorocodeClientKeys getClientKeys()
-    {
-
-        return clientKeys == null ? new ScorocodeClientKeys("", "", "", "") : clientKeys;
-
-    }
-
-
-
-    @NonNull
-
-    public boolean isReadonly()
-    {
-
-        return readonly;
-
-    }
-
-
-
-    @NonNull
-
-    public ScorocodeACLPublic getACLPublic()
-    {
-
-        return ACLPublic == null ? new ScorocodeACLPublic(false, false, false, false) : ACLPublic;
-
-    }
-
-
-
-    @NonNull
-
-    public Settings getSettings()
-    {
-
-        return settings == null ? new Settings(false, 0L, "", "", (new HashMap<String, MailTemplate>()), "") : settings;
-
-    }
-
-
-
-    @NonNull
-
-    public StorageInfo getStorage()
-    {
-
-        return storage == null ? new StorageInfo("", "") : storage;
-
-    }
-
-
-
-    @NonNull
-
-    public String getStringId()
-    {
-
-        return stringId == null ? "" : stringId;
-
-    }
-
-
-
-    @NonNull
-
-    public String getNpm()
-    {
-
-        return npm == null ? "" : npm;
-
-    }
-
-}
-}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,13 @@ namespace ScorocodeUWP.ScorocodeObjects
 {
     public class ScorocodeACL
     {
+        [JsonProperty("create")]
         private List<string> create;
+        [JsonProperty("read")]
         private List<string> read;
+        [JsonProperty("remove")]
         private List<string> remove;
+        [JsonProperty("update")]
         private List<string> update;
 
         public ScorocodeACL() { }

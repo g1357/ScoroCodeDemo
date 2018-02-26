@@ -99,7 +99,7 @@ namespace ScorocodeUWP.ScorocodeObjects
             return readOnly;
         }
 
-        public boo isRequiredField()
+        public bool isRequiredField()
         {
             return required;
         }

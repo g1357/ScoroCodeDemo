@@ -13,6 +13,7 @@ using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Application;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.Responses.Messages;
+using ScorocodeUWP.ScorocodeObjects;
 using ScorocodeUWP.WebApi;
 using Windows.Web.Http;
 
@@ -465,11 +466,12 @@ namespace ScorocodeUWP
         //Call<ResponseAppInfo> getApplicationInfo(@Body RequestAppInfo requestAppInfo);
         public async Task<ResponseAppInfo> GetAppInformation(RequestAppInfo requestAppInfo)
         {
-            var uri = new Uri(baseUri + @"api/v1/stat");
+            var uri = new Uri(baseUri + @"api/v1/app");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestAppInfo);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseAppInfo responseAppInfo = new ResponseAppInfo();
+            //ScorocodeApplicationInfo appInfo = new ScorocodeApplicationInfo();
+            ResponseAppInfo responseAppInfo = null; // = new ResponseAppInfo(appInfo);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -477,13 +479,12 @@ namespace ScorocodeUWP
             }
             else
             {
-                responseAppInfo.Error = true;
-                responseAppInfo.ErrCode = "";
-                responseAppInfo.ErrMsg = "Ошибка HttpClient.";
+                //responseAppInfo.Error = true;
+                //responseAppInfo.ErrCode = "";
+                //responseAppInfo.ErrMsg = "Ошибка HttpClient.";
             }
             return responseAppInfo;
         }
-
 
         //====== Collections methods ======
 

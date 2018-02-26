@@ -158,6 +158,8 @@
     <Compile Include="Responses\ResponseCodes.cs" />
     <Compile Include="ScorocodeObjects\Index.cs" />
     <Compile Include="ScorocodeObjects\IndexField.cs" />
+    <Compile Include="ScorocodeObjects\Limits.cs" />
+    <Compile Include="ScorocodeObjects\MailTemplate.cs" />
     <Compile Include="ScorocodeObjects\NetworkHelper.cs" />
     <Compile Include="ScorocodeObjects\Query.cs" />
     <Compile Include="ScorocodeObjects\QueryInfo.cs" />
@@ -173,8 +175,10 @@
     <Compile Include="ScorocodeObjects\ScorocodeSdkStateHolder.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeTriggers.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeTypes.cs" />
+    <Compile Include="ScorocodeObjects\Settings.cs" />
     <Compile Include="ScorocodeObjects\Sort.cs" />
     <Compile Include="ScorocodeObjects\SortInfo.cs" />
+    <Compile Include="ScorocodeObjects\StorageInfo.cs" />
     <Compile Include="ScorocodeObjects\Trigger.cs" />
     <Compile Include="ScorocodeObjects\UpdateInfo.cs" />
     <Compile Include="ScorocodeScript.cs" />

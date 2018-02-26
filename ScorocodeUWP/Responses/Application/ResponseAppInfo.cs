@@ -1,4 +1,5 @@
-﻿using ScorocodeUWP.ScorocodeObjects;
+﻿using Newtonsoft.Json;
+using ScorocodeUWP.ScorocodeObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ScorocodeUWP.Responses.Application
 {
     public class ResponseAppInfo : ResponseCodes
     {
-
+        [JsonProperty("app")]
         private ScorocodeApplicationInfo app;
 
         public ResponseAppInfo(ScorocodeApplicationInfo applicationInfo)
