@@ -163,7 +163,9 @@
     <Compile Include="ScorocodeObjects\QueryInfo.cs" />
     <Compile Include="ScorocodeObjects\RegexOptions.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeACL.cs" />
+    <Compile Include="ScorocodeObjects\ScorocodeACLPublic.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeApplicationInfo.cs" />
+    <Compile Include="ScorocodeObjects\ScorocodeClientKeys.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeCollection.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeCoreInfo.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeField.cs" />

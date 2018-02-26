@@ -10,6 +10,7 @@ using ScorocodeUWP.Requests.Data;
 using ScorocodeUWP.Requests.Files;
 using ScorocodeUWP.Requests.Messages;
 using ScorocodeUWP.Responses;
+using ScorocodeUWP.Responses.Application;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.Responses.Messages;
 using ScorocodeUWP.WebApi;
