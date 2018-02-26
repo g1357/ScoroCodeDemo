@@ -104,7 +104,7 @@ namespace ScoroTask.ViewModels
                         ErrorMessage = responseAppInfo.ErrMsg;
                         if (!Error)
                         {
-                            string jsonContent = JsonConvert.SerializeObject(requestAppInfo);
+                            string jsonContent = JsonConvert.SerializeObject(responseAppInfo);
                             Document = jsonContent;
                         }
                     },

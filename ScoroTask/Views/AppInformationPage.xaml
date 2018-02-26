@@ -1,13 +1,13 @@
 ﻿<Page
-    x:Class="ScoroTask.Views.AppInformationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fcu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:cu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Class="ScoroTask.Views.AppInformationPage"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding AppInformationViewModel, Source={StaticResource Locator}}"
-    xmlns:fcu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:cu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d">
 
     <Grid>
@@ -15,6 +15,25 @@
             <RowDefinition x:Name="TitleRow" Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePage.Margin" Value="60,0,12,7"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <TextBlock
             x:Name="TitlePage"
@@ -34,24 +53,24 @@
                         <Button Content="Get App Stat" Command="{x:Bind Path=ViewModel.GetAppStatisticCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Error" Width="80"/>
-                            <TextBlock Text="{x:Bind ViewModel.Error, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="ErrCode" Width="80"/>
-                            <TextBlock Text="{x:Bind ViewModel.ErrorCode, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="ErrMsg" Width="80"/>
-                            <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
                         </StackPanel>
                         <TextBlock Text="Result:"/>
-                        
-                        <TextBlock Text="{x:Bind ViewModel.Document, Mode=OneWay}" />
+
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
                     </StackPanel>
 
                 </Grid>
             </PivotItem>
-            
+
             <PivotItem x:Uid="AppInformation_PivotItem2">
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <!--
@@ -62,42 +81,28 @@
                         <Button Content="Get App Info" Command="{x:Bind Path=ViewModel.GetAppInfoCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Error" Width="80"/>
-                            <TextBlock Text="{x:Bind ViewModel.Error, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="ErrCode" Width="80"/>
-                            <TextBlock Text="{x:Bind ViewModel.ErrorCode, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="ErrMsg" Width="80"/>
-                            <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
                         </StackPanel>
                         <TextBlock Text="Result:"/>
-                        <ScrollViewer>
-                            <TextBlock Text="{x:Bind ViewModel.Document, Mode=OneWay}" />
+                        <ScrollViewer HorizontalAlignment="Left" Margin="10,10,10,10"
+                                      Width="1200" MaxWidth="2000"
+                                      HorizontalScrollBarVisibility="Auto" MinWidth="200" MinHeight="200">
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}"
+                                       MaxWidth="1000"
+                                       TextWrapping="Wrap"/>
                         </ScrollViewer>
                     </StackPanel>
 
                 </Grid>
             </PivotItem>
         </Pivot>
-        <!--  Adaptive triggers  -->
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WindowStates">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640"/>
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="TitlePage.Margin" cu:Value="60,0,12,7" fcu:Value="12,0,12,7"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
