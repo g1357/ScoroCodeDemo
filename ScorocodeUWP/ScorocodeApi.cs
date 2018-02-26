@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Application;
+using ScorocodeUWP.Requests.Collections;
 using ScorocodeUWP.Requests.Data;
 using ScorocodeUWP.Requests.Files;
 using ScorocodeUWP.Requests.Messages;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Application;
+using ScorocodeUWP.Responses.Collections;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.Responses.Messages;
 using ScorocodeUWP.ScorocodeObjects;
@@ -499,12 +501,50 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections")
         //Call<ResponseGetCollectionsList> getCollectionsList(@Body RequestCollectionList requestCollectionList);
+        public async Task<ResponseGetCollectionsList> GetCollectionsList(RequestCollectionsList requestCollectionsList)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCollectionsList);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseGetCollectionsList responseCollList = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollList = JsonConvert.DeserializeObject<ResponseGetCollectionsList>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollList.Error = true;
+                responseCollList.ErrCode = "";
+                responseCollList.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollList;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/get")
         //Call<ResponseCollection> getCollectionByName(@Body RequestCollectionByName requestCollectionByName);
+        public async Task<ResponseCollection> GetCollectionByName(RequestCollectionByName requestCollectionByName)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/get");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCollectionByName);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollection.Error = true;
+                responseCollection.ErrCode = "";
+                responseCollection.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollection;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/create")
@@ -546,7 +586,7 @@ namespace ScorocodeUWP
         //Call<ResponseAddField> addFieldInCollection(@Body RequestCreateField requestAddFieldInCollection);
 
 
-        //        @Headers({ "Content-Type: application/json"})
+        //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/fields/delete")
         //Call<ResponseCollection> deleteFieldFromCollection(@Body RequestDeleteField requestDeleteFieldFromCollection);
 
@@ -610,7 +650,6 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/bots/delete")
         //Call<ResponseCodes> deleteBot(@Body RequestDeleteBot requestDeleteBot);
-
 
     }
 }

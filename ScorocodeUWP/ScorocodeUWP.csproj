@@ -108,6 +108,8 @@
   <ItemGroup>
     <Compile Include="Requests\Application\AppBase.cs" />
     <Compile Include="Requests\Application\RequestAppInfo.cs" />
+    <Compile Include="Requests\Collections\RequestCollectionByName.cs" />
+    <Compile Include="Requests\Collections\RequestCollectionsList.cs" />
     <Compile Include="Requests\Data\RequestCount.cs" />
     <Compile Include="Requests\Data\RequestFind.cs" />
     <Compile Include="Requests\Data\RequestInsert.cs" />
@@ -127,6 +129,8 @@
     <Compile Include="Requests\User\RequestLogoutUser.cs" />
     <Compile Include="Requests\Application\RequestStatistic.cs" />
     <Compile Include="Responses\Application\ResponseAppInfo.cs" />
+    <Compile Include="Responses\Collections\ResponseCollection.cs" />
+    <Compile Include="Responses\Collections\ResponseGetCollectionsList.cs" />
     <Compile Include="Responses\Data\ResponseResult.cs" />
     <Compile Include="Responses\Data\ResponseInsert.cs" />
     <Compile Include="Responses\Messages\ResponseCount.cs" />

@@ -487,4 +487,20 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>AppInformation</value>
     <comment>Navigation view item name for AppInformation</comment>
   </data>
+  <data name="CollectionOperations_Pivot.Text" xml:space="preserve">
+    <value>CollectionOperations</value>
+    <comment>Page title for CollectionOperations</comment>
+  </data>
+  <data name="CollectionOperations_PivotItem1.Header" xml:space="preserve">
+    <value>Coll's List</value>
+    <comment>First Pivot item title for CollectionOperations</comment>
+  </data>
+  <data name="CollectionOperations_PivotItem2.Header" xml:space="preserve">
+    <value>Coll by Name</value>
+    <comment>Second Pivot item title for CollectionOperations</comment>
+  </data>
+  <data name="Shell_CollectionOperations" xml:space="preserve">
+    <value>CollectionOperations</value>
+    <comment>Navigation view item name for CollectionOperations</comment>
+  </data>
 </root>
