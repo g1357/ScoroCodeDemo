@@ -45,6 +45,7 @@
                             <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" />
                         </StackPanel>
                         <TextBlock Text="Result:"/>
+                        
                         <TextBlock Text="{x:Bind ViewModel.Document, Mode=OneWay}" />
                     </StackPanel>
 
@@ -72,7 +73,9 @@
                             <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" />
                         </StackPanel>
                         <TextBlock Text="Result:"/>
-                        <TextBlock Text="{x:Bind ViewModel.Document, Mode=OneWay}" />
+                        <ScrollViewer>
+                            <TextBlock Text="{x:Bind ViewModel.Document, Mode=OneWay}" />
+                        </ScrollViewer>
                     </StackPanel>
 
                 </Grid>

@@ -106,19 +106,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApplicationInfo.cs" />
-    <Compile Include="Bot.cs" />
-    <Compile Include="Callbacks\CallbackDocumentSaved.cs" />
-    <Compile Include="Callbacks\CallbackLoginUser.cs" />
-    <Compile Include="Callbacks\CallbackLogoutUser.cs" />
-    <Compile Include="Callbacks\CallbackRegisterUser.cs" />
-    <Compile Include="Callbacks\CallbackRemoveDocument.cs" />
-    <Compile Include="Callbacks\ICallbackApplicationStatistic.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="Collections.cs" />
-    <Compile Include="Dagger2Components\ScorocodeApiComponent.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="IScorocodeApiComponent.cs" />
     <Compile Include="Requests\Application\AppBase.cs" />
     <Compile Include="Requests\Application\RequestAppInfo.cs" />
     <Compile Include="Requests\Data\RequestCount.cs" />
@@ -147,11 +134,7 @@
     <Compile Include="Responses\Data\ResponseUpdate.cs" />
     <Compile Include="Responses\Data\ResponseUpdateById.cs" />
     <Compile Include="Responses\Application\ResponseAppStatistic.cs" />
-    <Compile Include="ScorocodeApiModule.cs" />
     <Compile Include="ScorocodeObjects\DocumentInfo.cs" />
-    <Compile Include="Folders.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Model.cs" />
     <Compile Include="Requests\User\RequestRegisterUser.cs" />
     <Compile Include="Responses\User\ResponseLogin.cs" />
     <Compile Include="Responses\Data\ResponseRemove.cs" />
@@ -176,23 +159,18 @@
     <Compile Include="ScorocodeObjects\ScorocodeTriggers.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeTypes.cs" />
     <Compile Include="ScorocodeObjects\Settings.cs" />
+    <Compile Include="ScorocodeObjects\SMTP.cs" />
     <Compile Include="ScorocodeObjects\Sort.cs" />
     <Compile Include="ScorocodeObjects\SortInfo.cs" />
     <Compile Include="ScorocodeObjects\StorageInfo.cs" />
     <Compile Include="ScorocodeObjects\Trigger.cs" />
     <Compile Include="ScorocodeObjects\UpdateInfo.cs" />
-    <Compile Include="ScorocodeScript.cs" />
-    <Compile Include="ScorocodeSDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script.cs" />
     <Compile Include="Services\IScoroService.cs" />
     <Compile Include="Services\ScoroService.cs" />
-    <Compile Include="Update.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="WebApi\Result.cs" />
     <Compile Include="ScorocodeApi.cs" />
     <Compile Include="WebApi\WebApiCommand.cs" />
-    <Compile Include="WebSocket.cs" />
     <EmbeddedResource Include="Properties\ScorocodeUWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>

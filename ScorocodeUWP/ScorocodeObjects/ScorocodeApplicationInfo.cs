@@ -29,10 +29,10 @@ namespace ScorocodeUWP.ScorocodeObjects
         private ScorocodePublicKeys accessKeys;
         [JsonProperty("clientKeys")]
         private ScorocodeClientKeys clientKeys;
-        [JsonProperty("readOnly")]
+        [JsonProperty("readonly")]
         private bool readOnly;
         [JsonProperty("ACLPublic")]
-        private ScorocodeACLPublic AclPublic;
+        private ScorocodeACLPublic aclPublic;
         [JsonProperty("settings")]
         private Settings settings;
         [JsonProperty("storage")]
@@ -58,7 +58,7 @@ namespace ScorocodeUWP.ScorocodeObjects
             this.accessKeys = accessKeys;
             this.clientKeys = clientKeys;
             this.readOnly = readOnly;
-            this.AclPublic = ACLPublic;
+            this.aclPublic = ACLPublic;
             this.settings = settings;
             this.storage = storage;
             this.stringId = stringId;
@@ -96,8 +96,8 @@ namespace ScorocodeUWP.ScorocodeObjects
 
         public bool IsReadonly => readOnly;
 
-        public ScorocodeACLPublic ACLPublic => AclPublic ?? new ScorocodeACLPublic(false, false, false, false);
-        public Settings GetSettings => settings ?? new Settings(false, 0L, "", "", (new Dictionary<String, MailTemplate>()), "");
+        public ScorocodeACLPublic AclPublic => aclPublic ?? new ScorocodeACLPublic(false, false, false, false);
+        public Settings GetSettings => settings ?? new Settings(false, 0L, "", "", (new Dictionary<String, MailTemplate>()), new SMTP());
 
         public StorageInfo Storage => storage ?? new StorageInfo("", "");
 

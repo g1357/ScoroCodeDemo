@@ -20,10 +20,10 @@ namespace ScorocodeUWP.ScorocodeObjects
         [JsonProperty("mailTemplates")]
         private Dictionary<string, MailTemplate> mailTemplates;
         [JsonProperty("smtp")]
-        private string smtp;
+        private SMTP smtp;
 
         public Settings(bool emailVerified, long sessionTimeout, string androidApiKey,
-                        string gcmSenderId, Dictionary<string, MailTemplate> mailTemplates, string smtp)
+                        string gcmSenderId, Dictionary<string, MailTemplate> mailTemplates, SMTP smtp)
         {
             this.emailVerified = emailVerified;
             this.sessionTimeout = sessionTimeout;
@@ -43,6 +43,6 @@ namespace ScorocodeUWP.ScorocodeObjects
 
         public Dictionary<string, MailTemplate> MailTemplates => mailTemplates;
 
-        public string Smtp => smtp;
+        public SMTP Smtp => smtp;
     }
 }

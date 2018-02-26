@@ -23,7 +23,7 @@ namespace ScorocodeUWP.ScorocodeObjects
 
         [JsonProperty("ACL")]
         private ScorocodeACL acl;
-        public ScorocodeACL ACL => acl ?? new ScorocodeACL();
+        public ScorocodeACL Acl => acl ?? new ScorocodeACL();
 
         [JsonProperty("triggers")]
         private ScorocodeTriggers triggers;

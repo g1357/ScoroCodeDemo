@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorocodeUWP
+namespace ScorocodeUWP.ScorocodeObjects
 {
-    class Bot
+    public class SMTP
     {
     }
 }

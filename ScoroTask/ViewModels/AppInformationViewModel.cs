@@ -2,6 +2,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using ScorocodeUWP;
 using ScorocodeUWP.Requests.Application;
 using ScorocodeUWP.Requests.Messages;
@@ -103,7 +104,8 @@ namespace ScoroTask.ViewModels
                         ErrorMessage = responseAppInfo.ErrMsg;
                         if (!Error)
                         {
-                            Document = responseAppInfo.ToString();
+                            string jsonContent = JsonConvert.SerializeObject(requestAppInfo);
+                            Document = jsonContent;
                         }
                     },
                     () =>

@@ -470,12 +470,20 @@ namespace ScorocodeUWP
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestAppInfo);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            //ScorocodeApplicationInfo appInfo = new ScorocodeApplicationInfo();
-            ResponseAppInfo responseAppInfo = null; // = new ResponseAppInfo(appInfo);
+            //ScorocodeApplicationInfo appInfo = new ScorocodeApplicationInfo(
+            //    "", "", "", "", "", "", new Limits(0L, 0L, 0L, 0L, 0L, 0L, 0L), 
+            //    new Dictionary<string, ScorocodeCollection>(), 
+            //    new ScorocodePublicKeys("", "", "", "", ""), 
+            //    new ScorocodeClientKeys("", "", "", ""), false, 
+            //    new ScorocodeACLPublic(false, false, false,false), 
+            //    new Settings(false, 0L, "","", new Dictionary<string, MailTemplate>(), ""), 
+            //    new StorageInfo("", ""), "", "");
+            ResponseAppInfo responseAppInfo = null; // new ResponseAppInfo(appInfo);
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseAppInfo = JsonConvert.DeserializeObject<ResponseAppInfo>(httpResponse.Content.ToString());
+                var jsonString = httpResponse.Content.ToString();
+                responseAppInfo = JsonConvert.DeserializeObject<ResponseAppInfo>(jsonString);
             }
             else
             {
