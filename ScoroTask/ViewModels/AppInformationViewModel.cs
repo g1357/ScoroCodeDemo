@@ -60,7 +60,7 @@ namespace ScoroTask.ViewModels
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestStatistic requestStatistic = new RequestStatistic(stateHolder);
-                        ResponseAppStatistic responseAppStatistic = await sc.GetAppStatistic(requestStatistic);
+                        ResponseAppStatistic responseAppStatistic = await sc.GetAppStatisticAsync(requestStatistic);
 
                         Error = responseAppStatistic.Error;
                         ErrorCode = responseAppStatistic.ErrCode;
@@ -97,7 +97,7 @@ namespace ScoroTask.ViewModels
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestAppInfo requestAppInfo = new RequestAppInfo(stateHolder);
-                        ResponseAppInfo responseAppInfo = await sc.GetAppInformation(requestAppInfo);
+                        ResponseAppInfo responseAppInfo = await sc.GetAppInformationAsync(requestAppInfo);
 
                         Error = responseAppInfo.Error;
                         ErrorCode = responseAppInfo.ErrCode;
@@ -116,6 +116,5 @@ namespace ScoroTask.ViewModels
                 return _getAppInfoCommand;
             }
         }
-
     }
 }

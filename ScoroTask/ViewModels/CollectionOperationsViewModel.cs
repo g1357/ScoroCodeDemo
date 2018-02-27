@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ScorocodeUWP;
 using ScorocodeUWP.Requests.Collections;
+using ScorocodeUWP.Requests.Fields;
 using ScorocodeUWP.Responses.Collections;
+using ScorocodeUWP.Responses.Fields;
 using ScorocodeUWP.ScorocodeObjects;
 using ScoroTask.Helpers;
 using ScoroTask.Services;
@@ -48,6 +50,13 @@ namespace ScoroTask.ViewModels
             set { Set(ref _collName, value); }
         }
 
+        private string _fieldName;
+        public string FieldName
+        {
+            get { return _fieldName; }
+            set { Set(ref _fieldName, value); }
+        }
+
         //============ Get Collection List ============
         private RelayCommand _getCollectionListCommand;
         public RelayCommand GetCollectionListCommand
@@ -62,7 +71,7 @@ namespace ScoroTask.ViewModels
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestCollectionsList requestCollectionsList = new RequestCollectionsList(stateHolder);
-                        ResponseGetCollectionsList responseAppStatistic = await sc.GetCollectionsList(requestCollectionsList);
+                        ResponseGetCollectionsList responseAppStatistic = await sc.GetCollectionsListAsync(requestCollectionsList);
 
                         Error = responseAppStatistic.Error;
                         ErrorCode = responseAppStatistic.ErrCode;
@@ -101,7 +110,7 @@ namespace ScoroTask.ViewModels
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByName(requestCollectionByName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -125,6 +134,373 @@ namespace ScoroTask.ViewModels
                     });
                 }
                 return _getCollByNameCommand;
+            }
+        }
+
+        //============ Create Collection  ============
+        private RelayCommand _createCollectionCommand;
+        public RelayCommand CreateCollectionCommand
+        {
+            get
+            {
+                if (_createCollectionCommand == null)
+                {
+                    _createCollectionCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _createCollectionCommand;
+            }
+        }
+
+        //============ Update Collection============
+        private RelayCommand _updateCollectionCommand;
+        public RelayCommand UpdateCollectionCommand
+        {
+            get
+            {
+                if (_updateCollectionCommand == null)
+                {
+                    _updateCollectionCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _updateCollectionCommand;
+            }
+        }
+
+        //============ Delete Collection ============
+        private RelayCommand _deleteCollectionCommand;
+        public RelayCommand DeleteCollectionCommand
+        {
+            get
+            {
+                if (_deleteCollectionCommand == null)
+                {
+                    _deleteCollectionCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _deleteCollectionCommand;
+            }
+        }
+
+        //============ Clone Collection ============
+        private RelayCommand _cloneCollectionCommand;
+        public RelayCommand CloneCollectionCommand
+        {
+            get
+            {
+                if (_cloneCollectionCommand == null)
+                {
+                    _cloneCollectionCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _cloneCollectionCommand;
+            }
+        }
+
+        //============ Create Collection Index ============
+        private RelayCommand _createCollectionIndexCommand;
+        public RelayCommand CreateCollectionIndexCommand
+        {
+            get
+            {
+                if (_createCollectionIndexCommand == null)
+                {
+                    _createCollectionIndexCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _createCollectionIndexCommand;
+            }
+        }
+
+        //============ Delete Collection Index ============
+        private RelayCommand _deleteCollectionIndexCommand;
+        public RelayCommand DeleteCollectionIndexCommand
+        {
+            get
+            {
+                if (_deleteCollectionIndexCommand == null)
+                {
+                    _deleteCollectionIndexCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _deleteCollectionIndexCommand;
+            }
+        }
+
+        //============ Change Collection Triggers ============
+        private RelayCommand _changeCollectionTriggersCommand;
+        public RelayCommand ChangeCollectionTriggersCommand
+        {
+            get
+            {
+                if (_changeCollectionTriggersCommand == null)
+                {
+                    _changeCollectionTriggersCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
+                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _changeCollectionTriggersCommand;
+            }
+        }
+
+        //============ Add Field to Collection ============
+        private RelayCommand _addFieldToCollectionCommand;
+        public RelayCommand AddFieldToCollectionCommand
+        {
+            get
+            {
+                if (_addFieldToCollectionCommand == null)
+                {
+                    _addFieldToCollectionCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        ScorocodeField field = new ScorocodeField(FieldName,
+                            ScorocodeTypes.TypeString, "", false, false, false);
+                        RequestCreateField requestCreateField = new RequestCreateField(stateHolder, CollName, field);
+                        ResponseAddField responseAddField = await sc.AddFieldToCollectionAsync(requestCreateField);
+
+                        Error = responseAddField.Error;
+                        ErrorCode = responseAddField.ErrCode;
+                        ErrorMessage = responseAddField.ErrMsg;
+                        if (!Error)
+                        {
+                            var fld = responseAddField.Field;
+                            Document = "Field:";
+                            Document += $"\n\tName:\t{fld.getFieldName()}";
+                            Document += $"\n\tType:\t{fld.getFieldType()}";
+                            Document += $"\n\tTarget:\t{fld.getTarget()}";
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _addFieldToCollectionCommand;
+            }
+        }
+
+        //============ Delete Field from Collection ============
+        private RelayCommand _deleteFieldFromCollectionCommand;
+        public RelayCommand DeleteFieldFromCollectionCommand
+        {
+            get
+            {
+                if (_deleteFieldFromCollectionCommand == null)
+                {
+                    _deleteFieldFromCollectionCommand = new RelayCommand(async () =>
+                    {
+                        var sc = new ScorocodeApi();
+                        var globalData = Singleton<GlobalDataService>.Instance;
+                        ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
+                        RequestDeleteField requestDeleteField = new RequestDeleteField(stateHolder, CollName, FieldName);
+                        ResponseCollection responseCollection = await sc.DeleteFieldFromCollectionAsync(requestDeleteField);
+
+                        Error = responseCollection.Error;
+                        ErrorCode = responseCollection.ErrCode;
+                        ErrorMessage = responseCollection.ErrMsg;
+                        if (!Error)
+                        {
+                            var coll = responseCollection.Collection;
+                            Document = "Collection:";
+                            Document += $"\n\tName:\t{coll.CollectionName}";
+                            Document += $"\n\t_id:\t{coll.CollectionId}";
+                            Document += $"\n\tFields:";
+                            foreach (var item in coll.Fields)
+                            {
+                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
+                            }
+                        }
+                    },
+                    () =>
+                    {
+                        return true;
+                    });
+                }
+                return _deleteFieldFromCollectionCommand;
             }
         }
 

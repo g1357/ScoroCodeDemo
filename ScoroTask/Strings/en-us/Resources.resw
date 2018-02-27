@@ -488,19 +488,46 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>Navigation view item name for AppInformation</comment>
   </data>
   <data name="CollectionOperations_Pivot.Text" xml:space="preserve">
-    <value>CollectionOperations</value>
+    <value>Collection Operations</value>
     <comment>Page title for CollectionOperations</comment>
   </data>
   <data name="CollectionOperations_PivotItem1.Header" xml:space="preserve">
-    <value>Coll's List</value>
+    <value>Get List</value>
     <comment>First Pivot item title for CollectionOperations</comment>
   </data>
   <data name="CollectionOperations_PivotItem2.Header" xml:space="preserve">
-    <value>Coll by Name</value>
+    <value>Get by Name</value>
     <comment>Second Pivot item title for CollectionOperations</comment>
   </data>
   <data name="Shell_CollectionOperations" xml:space="preserve">
     <value>CollectionOperations</value>
     <comment>Navigation view item name for CollectionOperations</comment>
+  </data>
+  <data name="CollectionOperations_PivotItem10.Header" xml:space="preserve">
+    <value>Add Field</value>
+  </data>
+  <data name="CollectionOperations_PivotItem11.Header" xml:space="preserve">
+    <value>Delete Field</value>
+  </data>
+  <data name="CollectionOperations_PivotItem3.Header" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CollectionOperations_PivotItem4Header" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="CollectionOperations_PivotItem5.Header" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="CollectionOperations_PivotItem6.Header" xml:space="preserve">
+    <value>Clone</value>
+  </data>
+  <data name="CollectionOperations_PivotItem7.Header" xml:space="preserve">
+    <value>Create Index</value>
+  </data>
+  <data name="CollectionOperations_PivotItem8.Header" xml:space="preserve">
+    <value>Delete Index</value>
+  </data>
+  <data name="CollectionOperations_PivotItem9.Header" xml:space="preserve">
+    <value>Change Triggers</value>
   </data>
 </root>

@@ -8,12 +8,15 @@ using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Application;
 using ScorocodeUWP.Requests.Collections;
 using ScorocodeUWP.Requests.Data;
+using ScorocodeUWP.Requests.Fields;
 using ScorocodeUWP.Requests.Files;
+using ScorocodeUWP.Requests.Indexes;
 using ScorocodeUWP.Requests.Messages;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Application;
 using ScorocodeUWP.Responses.Collections;
 using ScorocodeUWP.Responses.Data;
+using ScorocodeUWP.Responses.Fields;
 using ScorocodeUWP.Responses.Messages;
 using ScorocodeUWP.ScorocodeObjects;
 using ScorocodeUWP.WebApi;
@@ -442,7 +445,7 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("api/v1/stat")
         //Call<ResponseAppStatistic> getAppStatistic(@Body RequestStatistic requestStatistic);
-        public async Task<ResponseAppStatistic> GetAppStatistic(RequestStatistic requestStatistic)
+        public async Task<ResponseAppStatistic> GetAppStatisticAsync(RequestStatistic requestStatistic)
         {
             var uri = new Uri(baseUri + @"api/v1/stat");
             // Сформировать JSON данные
@@ -466,7 +469,7 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app")
         //Call<ResponseAppInfo> getApplicationInfo(@Body RequestAppInfo requestAppInfo);
-        public async Task<ResponseAppInfo> GetAppInformation(RequestAppInfo requestAppInfo)
+        public async Task<ResponseAppInfo> GetAppInformationAsync(RequestAppInfo requestAppInfo)
         {
             var uri = new Uri(baseUri + @"api/v1/app");
             // Сформировать JSON данные
@@ -501,7 +504,7 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections")
         //Call<ResponseGetCollectionsList> getCollectionsList(@Body RequestCollectionList requestCollectionList);
-        public async Task<ResponseGetCollectionsList> GetCollectionsList(RequestCollectionsList requestCollectionsList)
+        public async Task<ResponseGetCollectionsList> GetCollectionsListAsync(RequestCollectionsList requestCollectionsList)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections");
             // Сформировать JSON данные
@@ -525,7 +528,7 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/get")
         //Call<ResponseCollection> getCollectionByName(@Body RequestCollectionByName requestCollectionByName);
-        public async Task<ResponseCollection> GetCollectionByName(RequestCollectionByName requestCollectionByName)
+        public async Task<ResponseCollection> GetCollectionByNameAsync(RequestCollectionByName requestCollectionByName)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/get");
             // Сформировать JSON данные
@@ -549,47 +552,218 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/create")
         //Call<ResponseCollection> createCollection(@Body RequestCreateCollection requestCreateCollection);
+        public async Task<ResponseCollection> CreateCollectionAync(RequestCreateCollection requestCreateCollection)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/create");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCreateCollection);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollection.Error = true;
+                responseCollection.ErrCode = "";
+                responseCollection.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollection;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/update")
         //Call<ResponseCollection> updateCollection(@Body RequestUpdateCollection requestUpdateCollection);
+        public async Task<ResponseCollection> UpdateCollectionAsync(RequestUpdateCollection requestUpdateCollection)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/update");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestUpdateCollection);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollection.Error = true;
+                responseCollection.ErrCode = "";
+                responseCollection.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollection;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/delete")
         //Call<ResponseCodes> deleteCollection(@Body RequestDeleteCollection requestDeleteCollection);
+        public async Task<ResponseCollection> DeleteCollectionAsync(RequestDeleteCollection requestDeleteCollection)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/delete");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestDeleteCollection);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollection.Error = true;
+                responseCollection.ErrCode = "";
+                responseCollection.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollection;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/clone")
         //Call<ResponseCollection> cloneCollection(@Body RequestCloneCollection requestCloneCollection);
+        public async Task<ResponseCollection> CloneCollectionAsync(RequestCloneCollection requestCloneCollection)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/clone");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCloneCollection);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollection.Error = true;
+                responseCollection.ErrCode = "";
+                responseCollection.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollection;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/index/create")
         //Call<ResponseCodes> createCollectionsIndex(@Body RequestCreateCollectionIndex requestCreateCollectionIndex);
+        public async Task<ResponseCodes> CreateCollectionIndexAsync(RequestCreateCollectionIndex requestCreateCollectionIndex)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/index/create");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCreateCollectionIndex);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/index/delete")
         //Call<ResponseCodes> deleteCollectionsIndex(@Body RequestDeleteCollectionIndex requestCreateCollectionIndex);
+        public async Task<ResponseCodes> DeleteCollectionIndexAsync(RequestDeleteCollectionIndex requestCreateCollectionIndex)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/index/delete");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCreateCollectionIndex);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/triggers")
         //Call<ResponseChangeCollectionTriggers> changeCollectionTriggers(@Body RequestChangeCollectionTriggers requestChangeCollectionTriggers);
+        public async Task<ResponseChangeCollectionTriggers> ChangeCollectionTriggersAsync(RequestChangeCollectionTriggers requestChangeCollectionTriggers)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/triggers");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestChangeCollectionTriggers);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseChangeCollectionTriggers responseChangeCollectionTriggers = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseChangeCollectionTriggers = JsonConvert.DeserializeObject<ResponseChangeCollectionTriggers>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseChangeCollectionTriggers.Error = true;
+                responseChangeCollectionTriggers.ErrCode = "";
+                responseChangeCollectionTriggers.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseChangeCollectionTriggers;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/fields/create")
         //Call<ResponseAddField> addFieldInCollection(@Body RequestCreateField requestAddFieldInCollection);
+        public async Task<ResponseAddField> AddFieldToCollectionAsync(RequestCreateField requestAddFieldInCollection)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/fields/create");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestAddFieldInCollection);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseAddField responseAddField = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseAddField = JsonConvert.DeserializeObject<ResponseAddField>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseAddField.Error = true;
+                responseAddField.ErrCode = "";
+                responseAddField.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseAddField;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/fields/delete")
         //Call<ResponseCollection> deleteFieldFromCollection(@Body RequestDeleteField requestDeleteFieldFromCollection);
+        public async Task<ResponseCollection> DeleteFieldFromCollectionAsync(RequestDeleteField requestDeleteFieldFromCollection)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/collections/fields/delete");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestDeleteFieldFromCollection);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCollection.Error = true;
+                responseCollection.ErrCode = "";
+                responseCollection.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCollection;
+        }
 
         //====== Folder methods ======
 

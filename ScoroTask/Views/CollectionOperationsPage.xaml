@@ -92,6 +92,244 @@
 
                 </Grid>
             </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem3">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Create Collection" Command="{x:Bind Path=ViewModel.CreateCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem4">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Update Collection" Command="{x:Bind Path=ViewModel.UpdateCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem5">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Delete Collection" Command="{x:Bind Path=ViewModel.DeleteCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem6">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Clone Collection" Command="{x:Bind Path=ViewModel.CloneCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem7">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Create Collection Index" Command="{x:Bind Path=ViewModel.CreateCollectionIndexCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem8">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Delete Collection Index" Command="{x:Bind Path=ViewModel.DeleteCollectionIndexCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem9">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Change Collection Triggers" Command="{x:Bind Path=ViewModel.ChangeCollectionTriggersCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem10">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <Button Content="Add Field to Collection" Command="{x:Bind Path=ViewModel.AddFieldToCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="CollectionOperations_PivotItem11">
+                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Field Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.FieldName}" />
+                        </StackPanel>
+                        <Button Content="Delete Field from Collection" Command="{x:Bind Path=ViewModel.DeleteFieldFromCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Error" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Error}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrCode" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorCode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ErrMsg" Width="80"/>
+                            <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
+                        </StackPanel>
+                        <TextBlock Text="Result:"/>
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
         </Pivot>
     </Grid>
 </Page>
