@@ -22,7 +22,8 @@ namespace ScorocodeUWP.Requests.Collections
                     .setUseDocsACL(isUseDocsACL)
                     .setACL(ACL)
                     .setCollectionId(collectionId)
-                    .setNotify(notify);
+                    .setNotify(notify)
+                    .setTriggers(new ScorocodeTriggers());
         }
     }
 }

@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using ScorocodeUWP;
 using ScorocodeUWP.Requests.Collections;
 using ScorocodeUWP.Requests.Fields;
+using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Collections;
 using ScorocodeUWP.Responses.Fields;
 using ScorocodeUWP.ScorocodeObjects;
@@ -48,6 +49,13 @@ namespace ScoroTask.ViewModels
         {
             get { return _collName; }
             set { Set(ref _collName, value); }
+        }
+
+        private string _collId;
+        public string CollId
+        {
+            get { return _collId; }
+            set { Set(ref _collId, value); }
         }
 
         private string _fieldName;
@@ -150,8 +158,9 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        RequestCreateCollection requestCreateCollection = new RequestCreateCollection(stateHolder, CollName,
+                            false, new ScorocodeACL());
+                        ResponseCollection responseCollection = await sc.CreateCollectionAync(requestCreateCollection);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -178,7 +187,7 @@ namespace ScoroTask.ViewModels
             }
         }
 
-        //============ Update Collection============
+        //============ Update Collection Settings ============
         private RelayCommand _updateCollectionCommand;
         public RelayCommand UpdateCollectionCommand
         {
@@ -191,8 +200,9 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        RequestUpdateCollection requestUpdateCollection = new RequestUpdateCollection(stateHolder,
+                            CollId, CollName, false, new ScorocodeACL(), false);
+                        ResponseCollection responseCollection = await sc.UpdateCollectionAsync(requestUpdateCollection);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -232,24 +242,12 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        RequestDeleteCollection requestDeleteCollection = new RequestDeleteCollection(stateHolder, CollId);
+                        ResponseCodes responseCodes = await sc.DeleteCollectionAsync(requestDeleteCollection);
 
-                        Error = responseCollection.Error;
-                        ErrorCode = responseCollection.ErrCode;
-                        ErrorMessage = responseCollection.ErrMsg;
-                        if (!Error)
-                        {
-                            var coll = responseCollection.Collection;
-                            Document = "Collection:";
-                            Document += $"\n\tName:\t{coll.CollectionName}";
-                            Document += $"\n\t_id:\t{coll.CollectionId}";
-                            Document += $"\n\tFields:";
-                            foreach (var item in coll.Fields)
-                            {
-                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
-                            }
-                        }
+                        Error = responseCodes.Error;
+                        ErrorCode = responseCodes.ErrCode;
+                        ErrorMessage = responseCodes.ErrMsg;
                     },
                     () =>
                     {

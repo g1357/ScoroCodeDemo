@@ -22,7 +22,15 @@ namespace ScorocodeUWP.ScorocodeObjects
         [JsonProperty("afterRemove")]
         private Trigger afterRemove;
 
-        public ScorocodeTriggers() { }
+        public ScorocodeTriggers()
+        {
+            beforeInsert = new Trigger();
+            afterInsert = new Trigger();
+            beforeUpdate = new Trigger();
+            afterUpdate = new Trigger();
+            beforeRemove = new Trigger();
+            afterRemove = new Trigger();
+        }
 
         public ScorocodeTriggers setBeforeInsert(Trigger beforeInsert)
         {

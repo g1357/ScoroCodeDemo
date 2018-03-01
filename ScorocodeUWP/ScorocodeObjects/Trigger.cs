@@ -17,7 +17,11 @@ namespace ScorocodeUWP.ScorocodeObjects
         private bool isActive;
         public bool IsActive => isActive;
 
-        public Trigger() { }
+        public Trigger()
+        {
+            code = "";
+            isActive = false;
+        }
 
         public Trigger(string code, bool isActive)
         {

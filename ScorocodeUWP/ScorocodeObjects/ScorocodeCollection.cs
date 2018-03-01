@@ -43,7 +43,10 @@ namespace ScorocodeUWP.ScorocodeObjects
         private List<Index> indexes;
         public List<Index> Indexes => indexes ?? new List<Index>();
 
-        public ScorocodeCollection() { }
+        public ScorocodeCollection()
+        {
+            id = "";
+        }
 
         public ScorocodeCollection(
                 string id, string name, bool useDocsACL,

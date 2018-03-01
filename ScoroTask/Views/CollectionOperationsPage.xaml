@@ -122,6 +122,10 @@
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Collection Id" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollId}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
                             <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
                         </StackPanel>
@@ -148,8 +152,8 @@
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
-                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                            <TextBlock Text="Collection Id" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollId}" />
                         </StackPanel>
                         <Button Content="Delete Collection" Command="{x:Bind Path=ViewModel.DeleteCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">

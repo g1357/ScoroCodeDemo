@@ -12,13 +12,23 @@ namespace ScorocodeUWP.Requests.Collections
     public class RequestDeleteCollection : AppBase
     {
         [JsonProperty("collection")]
-        private ScorocodeCollection collection;
+        private DeleteCollection collection;
 
         public RequestDeleteCollection(ScorocodeSdkStateHolder stateHolder, string collectionId)
             : base(stateHolder)
         {
-            this.collection = new ScorocodeCollection()
-                    .setCollectionId(collectionId);
+            this.collection = new DeleteCollection(collectionId);
+        }
+
+        class DeleteCollection
+        {
+            [JsonProperty("id")]
+            private string id;
+
+            public DeleteCollection(string collId)
+            {
+                id = collId;
+            }
         }
     }
 }

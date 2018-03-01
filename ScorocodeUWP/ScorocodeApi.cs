@@ -600,25 +600,25 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/delete")
         //Call<ResponseCodes> deleteCollection(@Body RequestDeleteCollection requestDeleteCollection);
-        public async Task<ResponseCollection> DeleteCollectionAsync(RequestDeleteCollection requestDeleteCollection)
+        public async Task<ResponseCodes> DeleteCollectionAsync(RequestDeleteCollection requestDeleteCollection)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/delete");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestDeleteCollection);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
             }
             else
             {
-                responseCollection.Error = true;
-                responseCollection.ErrCode = "";
-                responseCollection.ErrMsg = "Ошибка HttpClient.";
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
             }
-            return responseCollection;
+            return responseCodes;
         }
 
         //@Headers({ "Content-Type: application/json"})
