@@ -512,7 +512,7 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   <data name="CollectionOperations_PivotItem3.Header" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="CollectionOperations_PivotItem4Header" xml:space="preserve">
+  <data name="CollectionOperations_PivotItem4.Header" xml:space="preserve">
     <value>Update</value>
   </data>
   <data name="CollectionOperations_PivotItem5.Header" xml:space="preserve">
