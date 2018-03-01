@@ -14,13 +14,24 @@ namespace ScorocodeUWP.Requests.Fields
         [JsonProperty("coll")]
         private string coll;
         [JsonProperty("collField")]
-        private ScorocodeField collField;
+        private DeleteField collField;
 
         public RequestDeleteField(ScorocodeSdkStateHolder stateHolder, string collectionName, 
             string fieldName) : base(stateHolder)
         {
             this.coll = collectionName;
-            this.collField = new ScorocodeField().setName(fieldName);
+            this.collField = new DeleteField(fieldName);
+        }
+
+        class DeleteField
+        {
+            [JsonProperty("name")]
+            private string name;
+
+            public DeleteField(string fieldName)
+            {
+                name = fieldName;
+            }
         }
     }
 }
