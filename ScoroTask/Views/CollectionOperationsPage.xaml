@@ -38,8 +38,8 @@
         <TextBlock x:Name="TitlePage" x:Uid="CollectionOperations_Pivot"
             Text="Navigation Item 1" Style="{StaticResource PageTitleStyle}" Margin="12,0,12,7"/>
 
-        <Pivot Grid.Row="1">
-            <PivotItem x:Uid="CollectionOperations_PivotItem1">
+        <Pivot Grid.Row="1" SelectionChanged="{x:Bind ViewModel.PivotItemSelectionChange}">
+            <PivotItem x:Uid="CollectionOperations_PivotItem1" >
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <!--
                     The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
@@ -65,7 +65,6 @@
 
                 </Grid>
             </PivotItem>
-
             <PivotItem x:Uid="CollectionOperations_PivotItem2">
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <StackPanel>
@@ -178,8 +177,12 @@
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
-                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                            <TextBlock Text="Collection Id" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollId}" Width="200"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="New Collection Name" Margin="0,0,10,0"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" Width="140" />
                         </StackPanel>
                         <Button Content="Clone Collection" Command="{x:Bind Path=ViewModel.CloneCollectionCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">

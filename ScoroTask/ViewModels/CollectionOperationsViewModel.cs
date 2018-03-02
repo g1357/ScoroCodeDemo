@@ -65,6 +65,14 @@ namespace ScoroTask.ViewModels
             set { Set(ref _fieldName, value); }
         }
 
+        public void PivotItemSelectionChange()
+        {
+            Error = false;
+            ErrorCode = "";
+            ErrorMessage = "";
+            Document = "";
+        }
+
         //============ Get Collection List ============
         private RelayCommand _getCollectionListCommand;
         public RelayCommand GetCollectionListCommand
@@ -271,8 +279,8 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        RequestCloneCollection requestCloneCollection = new RequestCloneCollection(stateHolder, CollId, CollName);
+                        ResponseCollection responseCollection = await sc.CloneCollectionAsync(requestCloneCollection);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
