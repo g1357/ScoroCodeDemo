@@ -180,8 +180,8 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        RequestChangeCollectionTrigers requestCollectionByName = new RequestChangeCollectionTrigers(stateHolder, CollName);
+                        ResponseChangeCollectionTrigers responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -223,7 +223,7 @@ namespace ScoroTask.ViewModels
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestCreateCollection requestCreateCollection = new RequestCreateCollection(stateHolder, CollName,
                             false, new ScorocodeACL());
-                        ResponseCollection responseCollection = await sc.CreateCollectionAync(requestCreateCollection);
+                        ResponseChangeCollectionTrigers responseCollection = await sc.CreateCollectionAync(requestCreateCollection);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -265,7 +265,7 @@ namespace ScoroTask.ViewModels
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestUpdateCollection requestUpdateCollection = new RequestUpdateCollection(stateHolder,
                             CollId, CollName, false, new ScorocodeACL(), false);
-                        ResponseCollection responseCollection = await sc.UpdateCollectionAsync(requestUpdateCollection);
+                        ResponseChangeCollectionTrigers responseCollection = await sc.UpdateCollectionAsync(requestUpdateCollection);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -335,7 +335,7 @@ namespace ScoroTask.ViewModels
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestCloneCollection requestCloneCollection = new RequestCloneCollection(stateHolder, CollId, CollName);
-                        ResponseCollection responseCollection = await sc.CloneCollectionAsync(requestCloneCollection);
+                        ResponseChangeCollectionTrigers responseCollection = await sc.CloneCollectionAsync(requestCloneCollection);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;
@@ -441,23 +441,25 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        ScorocodeTriggers scorocodeTriggers = new ScorocodeTriggers();
+                        scorocodeTriggers.setBeforeInsert(new Trigger("return true;", false));
+                        RequestChangeCollectionTriggers requestChangeCollectionTriggers = new RequestChangeCollectionTriggers(stateHolder, CollName, scorocodeTriggers);
+                        ResponseChangeCollectionTriggers responseChangeCollectionTriggers = await sc.ChangeCollectionTriggersAsync(requestChangeCollectionTriggers);
 
-                        Error = responseCollection.Error;
-                        ErrorCode = responseCollection.ErrCode;
-                        ErrorMessage = responseCollection.ErrMsg;
+                        Error = responseChangeCollectionTriggers.Error;
+                        ErrorCode = responseChangeCollectionTriggers.ErrCode;
+                        ErrorMessage = responseChangeCollectionTriggers.ErrMsg;
                         if (!Error)
                         {
-                            var coll = responseCollection.Collection;
-                            Document = "Collection:";
-                            Document += $"\n\tName:\t{coll.CollectionName}";
-                            Document += $"\n\t_id:\t{coll.CollectionId}";
-                            Document += $"\n\tFields:";
-                            foreach (var item in coll.Fields)
-                            {
-                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
-                            }
+                            var triggers = responseChangeCollectionTriggers.Triggers;
+                            Document = "Triggers:";
+                            Document += $"\n\t beforeInsert:\t{triggers.getBeforeInsert().Code} IsActive: {triggers.getBeforeInsert().IsActive}";
+                            Document += $"\n\t afterInsert:\t{triggers.getAfterInsert().Code} IsActive: {triggers.getAfterInsert().IsActive}";
+                            Document += $"\n\t beforeUpdate:\t{triggers.getBeforeUpdate().Code} IsActive: {triggers.getBeforeUpdate().IsActive}";
+                            Document += $"\n\t afterUpdate:\t{triggers.getAfterUpdate().Code} IsActive: {triggers.getAfterUpdate().IsActive}";
+                            Document += $"\n\t beforeRemove:\t{triggers.getBeforeRemove().Code} IsActive: {triggers.getBeforeRemove().IsActive}";
+                            Document += $"\n\t afterRemove:\t{triggers.getAfterRemove().Code} IsActive: {triggers.getAfterRemove().IsActive}";
+                            Document += $"\n\t beforeFind:\t{triggers.getBeforeFind().Code} IsActive: {triggers.getBeforeFind().IsActive}";
                         }
                     },
                     () =>
@@ -522,7 +524,7 @@ namespace ScoroTask.ViewModels
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
                         RequestDeleteField requestDeleteField = new RequestDeleteField(stateHolder, CollName, FieldName);
-                        ResponseCollection responseCollection = await sc.DeleteFieldFromCollectionAsync(requestDeleteField);
+                        ResponseChangeCollectionTrigers responseCollection = await sc.DeleteFieldFromCollectionAsync(requestDeleteField);
 
                         Error = responseCollection.Error;
                         ErrorCode = responseCollection.ErrCode;

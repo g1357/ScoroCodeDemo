@@ -21,6 +21,8 @@ namespace ScorocodeUWP.ScorocodeObjects
         private Trigger beforeRemove;
         [JsonProperty("afterRemove")]
         private Trigger afterRemove;
+        [JsonProperty("beforeFind")]
+        private Trigger beforeFind;
 
         public ScorocodeTriggers()
         {
@@ -30,6 +32,7 @@ namespace ScorocodeUWP.ScorocodeObjects
             afterUpdate = new Trigger();
             beforeRemove = new Trigger();
             afterRemove = new Trigger();
+            beforeFind = new Trigger();
         }
 
         public ScorocodeTriggers setBeforeInsert(Trigger beforeInsert)
@@ -68,6 +71,12 @@ namespace ScorocodeUWP.ScorocodeObjects
             return this;
         }
 
+        public ScorocodeTriggers setBeforeFind(Trigger beforeFind)
+        {
+            this.beforeFind = beforeFind;
+            return this;
+        }
+
         public Trigger getBeforeInsert()
         {
             return beforeInsert == null ? (new Trigger()) : beforeInsert;
@@ -97,5 +106,10 @@ namespace ScorocodeUWP.ScorocodeObjects
         {
             return afterRemove == null ? (new Trigger()) : afterRemove;
         }
+        public Trigger getBeforeFind()
+        {
+            return beforeFind == null ? (new Trigger()) : beforeFind;
+        }
+
     }
 }

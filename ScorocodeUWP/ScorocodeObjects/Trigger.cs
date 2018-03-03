@@ -9,12 +9,12 @@ namespace ScorocodeUWP.ScorocodeObjects
 {
     public class Trigger
     {
-        [JsonProperty("code")]
         private string code;
+        [JsonProperty("code")]
         public string Code => code ?? ""; 
 
-        [JsonProperty("isActive")]
         private bool isActive;
+        [JsonProperty("isActive")]
         public bool IsActive => isActive;
 
         public Trigger()

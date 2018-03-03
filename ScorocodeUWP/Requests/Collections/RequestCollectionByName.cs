@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ScorocodeUWP.Requests.Collections
 {
-    public class RequestCollectionByName : AppBase
+    public class RequestChangeCollectionTrigers : AppBase
     {
         [JsonProperty("coll")]
         private String coll;
-        public RequestCollectionByName(ScorocodeSdkStateHolder stateHolder, String collectionName)
+        public RequestChangeCollectionTrigers(ScorocodeSdkStateHolder stateHolder, String collectionName)
             : base(stateHolder)
         {
             this.coll = collectionName;

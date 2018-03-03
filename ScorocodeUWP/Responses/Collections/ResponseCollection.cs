@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace ScorocodeUWP.Responses.Collections
 {
-    public class ResponseCollection : ResponseCodes
+    public class ResponseChangeCollectionTrigers : ResponseCodes
     {
         [JsonProperty("collection")]
         private ScorocodeCollection collection;
 
-        public ResponseCollection(ScorocodeCollection collection)
+        public ResponseChangeCollectionTrigers(ScorocodeCollection collection)
         {
             this.collection = collection;
         }

@@ -528,17 +528,17 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/get")
         //Call<ResponseCollection> getCollectionByName(@Body RequestCollectionByName requestCollectionByName);
-        public async Task<ResponseCollection> GetCollectionByNameAsync(RequestCollectionByName requestCollectionByName)
+        public async Task<ResponseChangeCollectionTrigers> GetCollectionByNameAsync(RequestChangeCollectionTrigers requestCollectionByName)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/get");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestCollectionByName);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
+            ResponseChangeCollectionTrigers responseCollection = null; // new ResponseGetCollectionsList();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+                responseCollection = JsonConvert.DeserializeObject<ResponseChangeCollectionTrigers>(httpResponse.Content.ToString());
             }
             else
             {
@@ -552,17 +552,17 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/create")
         //Call<ResponseCollection> createCollection(@Body RequestCreateCollection requestCreateCollection);
-        public async Task<ResponseCollection> CreateCollectionAync(RequestCreateCollection requestCreateCollection)
+        public async Task<ResponseChangeCollectionTrigers> CreateCollectionAync(RequestCreateCollection requestCreateCollection)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/create");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestCreateCollection);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
+            ResponseChangeCollectionTrigers responseCollection = null; // new ResponseGetCollectionsList();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+                responseCollection = JsonConvert.DeserializeObject<ResponseChangeCollectionTrigers>(httpResponse.Content.ToString());
             }
             else
             {
@@ -576,17 +576,17 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/update")
         //Call<ResponseCollection> updateCollection(@Body RequestUpdateCollection requestUpdateCollection);
-        public async Task<ResponseCollection> UpdateCollectionAsync(RequestUpdateCollection requestUpdateCollection)
+        public async Task<ResponseChangeCollectionTrigers> UpdateCollectionAsync(RequestUpdateCollection requestUpdateCollection)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/update");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestUpdateCollection);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
+            ResponseChangeCollectionTrigers responseCollection = null; // new ResponseGetCollectionsList();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+                responseCollection = JsonConvert.DeserializeObject<ResponseChangeCollectionTrigers>(httpResponse.Content.ToString());
             }
             else
             {
@@ -624,17 +624,17 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/clone")
         //Call<ResponseCollection> cloneCollection(@Body RequestCloneCollection requestCloneCollection);
-        public async Task<ResponseCollection> CloneCollectionAsync(RequestCloneCollection requestCloneCollection)
+        public async Task<ResponseChangeCollectionTrigers> CloneCollectionAsync(RequestCloneCollection requestCloneCollection)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/clone");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestCloneCollection);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
+            ResponseChangeCollectionTrigers responseCollection = null; // new ResponseGetCollectionsList();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+                responseCollection = JsonConvert.DeserializeObject<ResponseChangeCollectionTrigers>(httpResponse.Content.ToString());
             }
             else
             {
@@ -744,17 +744,17 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/collections/fields/delete")
         //Call<ResponseCollection> deleteFieldFromCollection(@Body RequestDeleteField requestDeleteFieldFromCollection);
-        public async Task<ResponseCollection> DeleteFieldFromCollectionAsync(RequestDeleteField requestDeleteFieldFromCollection)
+        public async Task<ResponseChangeCollectionTrigers> DeleteFieldFromCollectionAsync(RequestDeleteField requestDeleteFieldFromCollection)
         {
             var uri = new Uri(baseUri + @"api/v1/app/collections/fields/delete");
             // Сформировать JSON данные
             string jsonContent = JsonConvert.SerializeObject(requestDeleteFieldFromCollection);
             HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
-            ResponseCollection responseCollection = null; // new ResponseGetCollectionsList();
+            ResponseChangeCollectionTrigers responseCollection = null; // new ResponseGetCollectionsList();
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                responseCollection = JsonConvert.DeserializeObject<ResponseCollection>(httpResponse.Content.ToString());
+                responseCollection = JsonConvert.DeserializeObject<ResponseChangeCollectionTrigers>(httpResponse.Content.ToString());
             }
             else
             {
