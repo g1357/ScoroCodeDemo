@@ -14,13 +14,24 @@ namespace ScorocodeUWP.Requests.Indexes
         [JsonProperty("coll")]
         private string coll;
         [JsonProperty("index")]
-        private Index index;
+        private DeleteIndex index;
 
         public RequestDeleteCollectionIndex(ScorocodeSdkStateHolder stateHolder,
             string collectionName, string indexName) : base(stateHolder)
         {
             this.coll = collectionName;
-            this.index = new Index(indexName, new List<IndexField>());
+            this.index = new DeleteIndex(indexName);
+        }
+
+        class DeleteIndex
+        {
+            [JsonProperty("name")]
+            private string name;    // Index Name
+
+            public DeleteIndex(string indexName)
+            {
+                name = indexName;
+            }
         }
     }
 }
