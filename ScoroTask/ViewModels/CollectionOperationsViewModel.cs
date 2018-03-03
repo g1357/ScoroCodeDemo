@@ -1,10 +1,11 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ScorocodeUWP;
 using ScorocodeUWP.Requests.Collections;
 using ScorocodeUWP.Requests.Fields;
+using ScorocodeUWP.Requests.Indexes;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Collections;
 using ScorocodeUWP.Responses.Fields;
@@ -48,7 +49,14 @@ namespace ScoroTask.ViewModels
         public string CollName
         {
             get { return _collName; }
-            set { Set(ref _collName, value); }
+            set
+            {
+                if (Set(ref _collName, value))
+                {
+                    CreateCollectionIndexCommand.RaiseCanExecuteChanged();
+                    DeleteCollectionIndexCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         private string _collId;
@@ -64,6 +72,53 @@ namespace ScoroTask.ViewModels
             get { return _fieldName; }
             set { Set(ref _fieldName, value); }
         }
+
+        private string _indexFieldName1;
+        public string IndexFieldName1
+        {
+            get { return _indexFieldName1; }
+            set { Set(ref _indexFieldName1, value); }
+        }
+
+        private bool _index1Order;
+        public bool Index1Order
+        {
+            get { return _index1Order; }
+            set { Set(ref _index1Order, value); }
+        }
+
+        private string _indexFieldName2;
+        public string IndexFieldName2
+        {
+            get { return _indexFieldName2; }
+            set
+            {
+                if (Set(ref _indexFieldName2, value))
+                    CreateCollectionIndexCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool _index2Order;
+        public bool Index2Order
+        {
+            get { return _index2Order; }
+            set { Set(ref _index2Order, value); }
+        }
+
+        private string _indexName;
+        public string IndexName
+        {
+            get { return _indexName; }
+            set
+            {
+                if (Set(ref _indexName, value))
+                {
+                    CreateCollectionIndexCommand.RaiseCanExecuteChanged();
+                    DeleteCollectionIndexCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
 
         public void PivotItemSelectionChange()
         {
@@ -320,28 +375,23 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        List<IndexField> indexFields = new List<IndexField>();
+                        indexFields.Add(new IndexField(IndexFieldName1, Index1Order ? 1 : -1));
+                        if (!string.IsNullOrEmpty(IndexFieldName2))
+                            indexFields.Add(new IndexField(IndexFieldName2, Index2Order ? 1 : -1));
+                        Index index = new Index(IndexName, indexFields);
+                        RequestCreateCollectionIndex requestCreateCollectionIndex = new RequestCreateCollectionIndex(stateHolder, CollName, index);
+                        ResponseCodes responseCodes = await sc.CreateCollectionIndexAsync(requestCreateCollectionIndex);
 
-                        Error = responseCollection.Error;
-                        ErrorCode = responseCollection.ErrCode;
-                        ErrorMessage = responseCollection.ErrMsg;
-                        if (!Error)
-                        {
-                            var coll = responseCollection.Collection;
-                            Document = "Collection:";
-                            Document += $"\n\tName:\t{coll.CollectionName}";
-                            Document += $"\n\t_id:\t{coll.CollectionId}";
-                            Document += $"\n\tFields:";
-                            foreach (var item in coll.Fields)
-                            {
-                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
-                            }
-                        }
+                        Error = responseCodes.Error;
+                        ErrorCode = responseCodes.ErrCode;
+                        ErrorMessage = responseCodes.ErrMsg;
                     },
                     () =>
                     {
-                        return true;
+                        return !string.IsNullOrEmpty(CollName)
+                            && !string.IsNullOrEmpty(IndexName)
+                            && !string.IsNullOrEmpty(IndexFieldName1);
                     });
                 }
                 return _createCollectionIndexCommand;
@@ -361,28 +411,17 @@ namespace ScoroTask.ViewModels
                         var sc = new ScorocodeApi();
                         var globalData = Singleton<GlobalDataService>.Instance;
                         ScorocodeSdkStateHolder stateHolder = globalData.stateHolder;
-                        RequestCollectionByName requestCollectionByName = new RequestCollectionByName(stateHolder, CollName);
-                        ResponseCollection responseCollection = await sc.GetCollectionByNameAsync(requestCollectionByName);
+                        RequestDeleteCollectionIndex requestDeleteCollectionIndex = new RequestDeleteCollectionIndex(stateHolder, CollName, IndexName);
+                        ResponseCodes responseCodes = await sc.DeleteCollectionIndexAsync(requestDeleteCollectionIndex);
 
-                        Error = responseCollection.Error;
-                        ErrorCode = responseCollection.ErrCode;
-                        ErrorMessage = responseCollection.ErrMsg;
-                        if (!Error)
-                        {
-                            var coll = responseCollection.Collection;
-                            Document = "Collection:";
-                            Document += $"\n\tName:\t{coll.CollectionName}";
-                            Document += $"\n\t_id:\t{coll.CollectionId}";
-                            Document += $"\n\tFields:";
-                            foreach (var item in coll.Fields)
-                            {
-                                Document += $"\n\t\t{item.getFieldName()} \t ({item.getFieldType()})";
-                            }
-                        }
+                        Error = responseCodes.Error;
+                        ErrorCode = responseCodes.ErrCode;
+                        ErrorMessage = responseCodes.ErrMsg;
                     },
                     () =>
                     {
-                        return true;
+                        return !string.IsNullOrEmpty(CollName)
+                            && !string.IsNullOrEmpty(IndexName);
                     });
                 }
                 return _deleteCollectionIndexCommand;

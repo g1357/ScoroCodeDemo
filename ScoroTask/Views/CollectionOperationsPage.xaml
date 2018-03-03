@@ -60,7 +60,8 @@
                             <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorMessage}" />
                         </StackPanel>
                         <TextBlock Text="Result:"/>
-                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}" />
+                        <TextBlock Text="{x:Bind Mode=OneWay, Path=ViewModel.Document}"
+                                   IsTextSelectionEnabled="True" />
                     </StackPanel>
 
                 </Grid>
@@ -207,8 +208,27 @@
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
-                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0" Width="120"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}"
+                                     Width="200"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Index Name" Margin="0,0,10,0" Width="120"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.IndexName}" Width="200" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Field Name 1" Width="120" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.IndexFieldName1}" Width="200" />
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Index1Order, Mode=TwoWay}"
+                                          OffContent="on descending" OnContent="on ascending"
+                                          Margin="10,0,5,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Field Name 2" Width="120" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.IndexFieldName2}" Width="200" />
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Index2Order, Mode=TwoWay}"
+                                          OffContent="on descending" OnContent="on ascending"
+                                          Margin="10,0,5,0"/>
                         </StackPanel>
                         <Button Content="Create Collection Index" Command="{x:Bind Path=ViewModel.CreateCollectionIndexCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">
@@ -233,8 +253,13 @@
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Collection Name" Margin="0,0,10,0"/>
-                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}" />
+                            <TextBlock Text="Collection Name" Margin="0,0,10,0" Width="120"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.CollName}"
+                                     Width="200"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Index Name" Margin="0,0,10,0" Width="120"/>
+                            <TextBox Text="{x:Bind Mode=TwoWay, Path=ViewModel.IndexName}" Width="200" />
                         </StackPanel>
                         <Button Content="Delete Collection Index" Command="{x:Bind Path=ViewModel.DeleteCollectionIndexCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">

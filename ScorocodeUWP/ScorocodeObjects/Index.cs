@@ -10,7 +10,7 @@ namespace ScorocodeUWP.ScorocodeObjects
     public class Index
     {
         [JsonProperty("name")]
-        private string name;
+        private string name;    // Index Name
         public string Name => name;
         [JsonProperty("fields")]
         private List<IndexField> fields;
