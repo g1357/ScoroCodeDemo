@@ -10,6 +10,7 @@ using ScorocodeUWP.Requests.Collections;
 using ScorocodeUWP.Requests.Data;
 using ScorocodeUWP.Requests.Fields;
 using ScorocodeUWP.Requests.Files;
+using ScorocodeUWP.Requests.Folders;
 using ScorocodeUWP.Requests.Indexes;
 using ScorocodeUWP.Requests.Messages;
 using ScorocodeUWP.Responses;
@@ -17,6 +18,7 @@ using ScorocodeUWP.Responses.Application;
 using ScorocodeUWP.Responses.Collections;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.Responses.Fields;
+using ScorocodeUWP.Responses.Folders;
 using ScorocodeUWP.Responses.Messages;
 using ScorocodeUWP.ScorocodeObjects;
 using ScorocodeUWP.WebApi;
@@ -770,16 +772,74 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/folders")
         //Call<ResponseGetFoldersList> getFoldersList(@Body RequestFoldersList requestFoldersList);
+        public async Task<ResponseGetFoldersList> GetFoldersListAsync(RequestFoldersList requestFoldersList)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/folders");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestFoldersList);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseGetFoldersList responseGetFoldersList = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseGetFoldersList = JsonConvert.DeserializeObject<ResponseGetFoldersList>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseGetFoldersList.Error = true;
+                responseGetFoldersList.ErrCode = "";
+                responseGetFoldersList.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseGetFoldersList;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/folders/create")
         //Call<ResponseCodes> createNewFolder(@Body RequestCreateNewFolder requestCreateNewFolder);
+        public async Task<ResponseCodes> CreateNewFolderAsync(RequestCreateNewFolder requestCreateNewFolder)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/folders/create");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCreateNewFolder);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/folders/delete")
         //Call<ResponseCodes> deleteFolder(@Body RequestDeleteFolder requestDeleteFolder);
+        public async Task<ResponseCodes>DeleteFolderAsync(RequestDeleteFolder requestDeleteFolder)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/folders/delete");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestDeleteFolder);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
 
         //====== Script methods ======

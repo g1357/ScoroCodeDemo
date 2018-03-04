@@ -45,6 +45,7 @@ namespace ScoroTask.ViewModels
             get { return _document; }
             set { Set(ref _document, value); }
         }
+
         private string _collName = "tasks";
         public string CollName
         {

@@ -187,6 +187,7 @@
     <Compile Include="ViewModels\CollectionOperationsViewModel.cs" />
     <Compile Include="ViewModels\DocumentOperationsViewModel.cs" />
     <Compile Include="ViewModels\FileOperationsViewModel.cs" />
+    <Compile Include="ViewModels\FolderOperationsViewModel.cs" />
     <Compile Include="ViewModels\GridViewModel.cs" />
     <Compile Include="ViewModels\ImageGalleryDetailViewModel.cs" />
     <Compile Include="ViewModels\ImageGalleryViewModel.cs" />
@@ -225,6 +226,9 @@
     </Compile>
     <Compile Include="Views\FirstRunDialog.xaml.cs">
       <DependentUpon>FirstRunDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FolderOperationsPage.xaml.cs">
+      <DependentUpon>FolderOperationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GridPage.xaml.cs">
       <DependentUpon>GridPage.xaml</DependentUpon>
@@ -336,6 +340,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FirstRunDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FolderOperationsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
