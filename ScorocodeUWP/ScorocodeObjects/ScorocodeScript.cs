@@ -17,7 +17,7 @@ namespace ScorocodeUWP.ScorocodeObjects
         private string path;
         [JsonProperty("description")]
         private string description;
-        [JsonProperty("code)]
+        [JsonProperty("code")]
         private string code;
         [JsonProperty("isActiveJob")]
         private bool isActiveJob;
