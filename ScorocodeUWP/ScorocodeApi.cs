@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ScorocodeUWP.Requests;
 using ScorocodeUWP.Requests.Application;
+using ScorocodeUWP.Requests.Bots;
 using ScorocodeUWP.Requests.Collections;
 using ScorocodeUWP.Requests.Data;
 using ScorocodeUWP.Requests.Fields;
@@ -13,13 +14,16 @@ using ScorocodeUWP.Requests.Files;
 using ScorocodeUWP.Requests.Folders;
 using ScorocodeUWP.Requests.Indexes;
 using ScorocodeUWP.Requests.Messages;
+using ScorocodeUWP.Requests.Scripts;
 using ScorocodeUWP.Responses;
 using ScorocodeUWP.Responses.Application;
+using ScorocodeUWP.Responses.Bots;
 using ScorocodeUWP.Responses.Collections;
 using ScorocodeUWP.Responses.Data;
 using ScorocodeUWP.Responses.Fields;
 using ScorocodeUWP.Responses.Folders;
 using ScorocodeUWP.Responses.Messages;
+using ScorocodeUWP.Responses.Scripts;
 using ScorocodeUWP.ScorocodeObjects;
 using ScorocodeUWP.WebApi;
 using Windows.Web.Http;
@@ -847,43 +851,196 @@ namespace ScorocodeUWP
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/create")
         //Call<ResponseScript> createScript(@Body RequestCreateScript requestCreateScript);
+        public async Task<ResponseScript> CreateScriptAsync(RequestCreateScript requestCreateScriptr)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/create");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCreateScriptr);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseScript responseScript = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseScript = JsonConvert.DeserializeObject<ResponseScript>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseScript.Error = true;
+                responseScript.ErrCode = "";
+                responseScript.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseScript;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/get")
         //Call<ResponseScript> getScriptById(@Body RequestGetScriptById requestGetScript);
+        public async Task<ResponseScript> GetScriptByIdAsync(RequestGetScriptById requestGetScript)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/get");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestGetScript);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseScript responseScript = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseScript = JsonConvert.DeserializeObject<ResponseScript>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseScript.Error = true;
+                responseScript.ErrCode = "";
+                responseScript.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseScript;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/update")
         //Call<ResponseScript> updateScript(@Body RequestUpdateScript requestUpdateScript);
+        public async Task<ResponseScript> UpdateScriptAsync(RequestUpdateScript requestUpdateScript)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/update");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestUpdateScript);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseScript responseScript = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseScript = JsonConvert.DeserializeObject<ResponseScript>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseScript.Error = true;
+                responseScript.ErrCode = "";
+                responseScript.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseScript;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/app/scripts/delete")
         //Call<ResponseCodes> deleteScript(@Body RequestDeleteScriptById requestDeleteScript);
+        public async Task<ResponseCodes> DeleteScriptAsync(RequestDeleteScriptById requestDeleteScript)
+        {
+            var uri = new Uri(baseUri + @"api/v1/app/scripts/delete");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestDeleteScript);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
         //====== Bot methods ======
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/bots")
         //Call<ResponseBotList> getBotsList(@Body RequestGetBotsList requestGetBotsList);
+        public async Task<ResponseBotList> GetBotsListAsync(RequestGetBotsList requestGetBotsList)
+        {
+            var uri = new Uri(baseUri + @"api/v1/bots");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestGetBotsList);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseBotList responseBotList = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseBotList = JsonConvert.DeserializeObject<ResponseBotList>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseBotList.Error = true;
+                responseBotList.ErrCode = "";
+                responseBotList.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseBotList;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/bots/create")
         //Call<ResponseBot> createBot(@Body RequestCreateBot requestCreateBot);
+        public async Task<ResponseBot> CreateBotAsync(RequestCreateBot requestCreateBot)
+        {
+            var uri = new Uri(baseUri + @"api/v1/bots/create");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestCreateBot);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseBot responseBot = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseBot = JsonConvert.DeserializeObject<ResponseBot>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseBot.Error = true;
+                responseBot.ErrCode = "";
+                responseBot.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseBot;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/bots/update")
         //Call<ResponseBot> updateBot(@Body RequestUpdateBot requestUpdateBot);
+        public async Task<ResponseBot> UpdateBotAsync(RequestUpdateBot requestUpdateBot)
+        {
+            var uri = new Uri(baseUri + @"api/v1/bots/update");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestUpdateBot);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseBot responseBot = null; // new ResponseGetCollectionsList();
 
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseBot = JsonConvert.DeserializeObject<ResponseBot>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseBot.Error = true;
+                responseBot.ErrCode = "";
+                responseBot.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseBot;
+        }
 
         //@Headers({ "Content-Type: application/json"})
         //@POST("/api/v1/bots/delete")
         //Call<ResponseCodes> deleteBot(@Body RequestDeleteBot requestDeleteBot);
+        public async Task<ResponseCodes> DeleteBotAsync(RequestDeleteBot requestDeleteBot)
+        {
+            var uri = new Uri(baseUri + @"api/v1/bots/delete");
+            // Сформировать JSON данные
+            string jsonContent = JsonConvert.SerializeObject(requestDeleteBot);
+            HttpResponseMessage httpResponse = await cmd.PostAsync(uri, jsonContent);
+            ResponseCodes responseCodes = null; // new ResponseGetCollectionsList();
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                responseCodes = JsonConvert.DeserializeObject<ResponseCodes>(httpResponse.Content.ToString());
+            }
+            else
+            {
+                responseCodes.Error = true;
+                responseCodes.ErrCode = "";
+                responseCodes.ErrMsg = "Ошибка HttpClient.";
+            }
+            return responseCodes;
+        }
 
     }
 }

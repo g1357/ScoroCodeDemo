@@ -108,6 +108,10 @@
   <ItemGroup>
     <Compile Include="Requests\Application\AppBase.cs" />
     <Compile Include="Requests\Application\RequestAppInfo.cs" />
+    <Compile Include="Requests\Bots\RequestCreateBot.cs" />
+    <Compile Include="Requests\Bots\RequestDeleteBot.cs" />
+    <Compile Include="Requests\Bots\RequestGetBotsList.cs" />
+    <Compile Include="Requests\Bots\RequestUpdateBot.cs" />
     <Compile Include="Requests\Collections\RequestChangeCollectionTriggers.cs" />
     <Compile Include="Requests\Collections\RequestCloneCollection.cs" />
     <Compile Include="Requests\Collections\RequestCollectionByName.cs" />
@@ -136,10 +140,16 @@
     <Compile Include="Requests\Messages\RequestSendPush.cs" />
     <Compile Include="Requests\Messages\RequestSendScriptTask.cs" />
     <Compile Include="Requests\Messages\RequestSendSms.cs" />
+    <Compile Include="Requests\Scripts\RequestCreateScript.cs" />
+    <Compile Include="Requests\Scripts\RequestDeleteScriptById.cs" />
+    <Compile Include="Requests\Scripts\RequestGetScriptById.cs" />
+    <Compile Include="Requests\Scripts\RequestUpdateScript.cs" />
     <Compile Include="Requests\User\RequestLoginUser.cs" />
     <Compile Include="Requests\User\RequestLogoutUser.cs" />
     <Compile Include="Requests\Application\RequestStatistic.cs" />
     <Compile Include="Responses\Application\ResponseAppInfo.cs" />
+    <Compile Include="Responses\Bots\ResponseBot.cs" />
+    <Compile Include="Responses\Bots\ResponseBotList.cs" />
     <Compile Include="Responses\Collections\ResponseChangeCollectionTriggers.cs" />
     <Compile Include="Responses\Collections\ResponseCollection.cs" />
     <Compile Include="Responses\Collections\ResponseGetCollectionsList.cs" />
@@ -153,6 +163,7 @@
     <Compile Include="Responses\Data\ResponseUpdate.cs" />
     <Compile Include="Responses\Data\ResponseUpdateById.cs" />
     <Compile Include="Responses\Application\ResponseAppStatistic.cs" />
+    <Compile Include="Responses\Scripts\ResponseScript.cs" />
     <Compile Include="ScorocodeObjects\DocumentInfo.cs" />
     <Compile Include="Requests\User\RequestRegisterUser.cs" />
     <Compile Include="Responses\User\ResponseLogin.cs" />
@@ -169,12 +180,14 @@
     <Compile Include="ScorocodeObjects\ScorocodeACL.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeACLPublic.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeApplicationInfo.cs" />
+    <Compile Include="ScorocodeObjects\ScorocodeBot.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeClientKeys.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeCollection.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeCoreInfo.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeField.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeFolder.cs" />
     <Compile Include="ScorocodeObjects\ScorocodePublicKeys.cs" />
+    <Compile Include="ScorocodeObjects\ScorocodeScript.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeSdkStateHolder.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeTriggers.cs" />
     <Compile Include="ScorocodeObjects\ScorocodeTypes.cs" />
@@ -184,8 +197,12 @@
     <Compile Include="ScorocodeObjects\SortInfo.cs" />
     <Compile Include="ScorocodeObjects\StorageInfo.cs" />
     <Compile Include="ScorocodeObjects\Trigger.cs" />
+    <Compile Include="ScorocodeObjects\TypeCustom.cs" />
+    <Compile Include="ScorocodeObjects\TypeDaily.cs" />
+    <Compile Include="ScorocodeObjects\TypeMonthly.cs" />
     <Compile Include="ScorocodeObjects\UpdateInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScorocodeObjects\Repeat.cs" />
     <Compile Include="Services\IScoroService.cs" />
     <Compile Include="Services\ScoroService.cs" />
     <Compile Include="WebApi\Result.cs" />
