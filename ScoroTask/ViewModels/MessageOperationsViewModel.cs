@@ -43,6 +43,13 @@ namespace ScoroTask.ViewModels
             set { Set(ref _document, value); }
         }
 
+        private string _scriptId;
+        public string ScriptId
+        {
+            get { return _scriptId; }
+            set { Set(ref _scriptId, value); }
+        }
+
         //============ Send E-mail Message ============
         private RelayCommand _sendEmailCommand;
         public RelayCommand SendEmailCommand
@@ -175,9 +182,8 @@ namespace ScoroTask.ViewModels
                         RequestSendScriptTask requestSendScriptTask;
                         Query query = new Query("tasks");
                         query.equalTo("bossComment", "Good Job!");
-                        string script = "5a79841422a5480fa50205ff"; // "{ return true;}";
                         bool debug = true;
-                        requestSendScriptTask = new RequestSendScriptTask(stateHolder, "tasks", query, script, debug);
+                        requestSendScriptTask = new RequestSendScriptTask(stateHolder, "tasks", query, ScriptId, debug);
                         ResponseCount responseCount = await sc.SendScriptTaskAsync(requestSendScriptTask);
 
                         Error = responseCount.Error;

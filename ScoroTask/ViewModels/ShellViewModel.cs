@@ -196,6 +196,7 @@ namespace ScoroTask.ViewModels
             _primaryItems.Add(new ShellNavigationItem("Shell_ImageGallery".GetLocalized(), Symbol.Document, typeof(ImageGalleryViewModel).FullName));
             _secondaryItems.Add(new ShellNavigationItem("Shell_Settings".GetLocalized(), Symbol.Setting, typeof(SettingsViewModel).FullName));
             _primaryItems.Add(new ShellNavigationItem("Shell_CollectionOperations".GetLocalized(), Symbol.Document, typeof(CollectionOperationsViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_ScriptOperations".GetLocalized(), Symbol.Document, typeof(ScriptOperationsViewModel).FullName));
         }
 
         private void ItemSelected(HamburgetMenuItemInvokedEventArgs args)

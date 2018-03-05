@@ -38,6 +38,8 @@
             <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords">
                 <Run Text="Данное приложение демонстрирует и проверяет работу BaaS Scorocode." FontSize="20" FontWeight="Bold" FontFamily="Segoe UI"/>
                 <LineBreak/><LineBreak/>
+                <Run Text="Редакция: "/><Run Text="{x:Bind ViewModel.ReleaseNo}"/>
+                <LineBreak/><LineBreak/>
                 <Run Text="Последнее изменение внесено: "/><Run Text="{x:Bind ViewModel.ReleaseDate}"/>
 
             </TextBlock>

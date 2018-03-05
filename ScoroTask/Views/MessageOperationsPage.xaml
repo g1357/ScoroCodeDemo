@@ -111,6 +111,10 @@
                     Place your content here.
                     -->
                     <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Script Id:" Width="80"/>
+                            <TextBox Text="{x:Bind ViewModel.ScriptId, Mode=TwoWay}" Width="200" />
+                        </StackPanel>
                         <Button Content="Send Script Task" Command="{x:Bind Path=ViewModel.SendScriptCommand}" Margin="10" VerticalAlignment="Top"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Error" Width="80"/>
